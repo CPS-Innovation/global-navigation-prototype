@@ -1,0 +1,14 @@
+{% extends "layouts/main.html" %}
+
+{% set mainClasses = "govuk-main-wrapper--auto-spacing case-files" %}
+
+{% block head %}
+  {{ super() }}
+  {% include "includes/wide.html" %}
+{% endblock %}
+
+{% block pageScripts %}
+  {{ super() }}
+  <script src="/public/javascripts/jquery-3.3.1.min.js"></script>
+  <script src="/public/javascripts/mojall.js"></script>
+{% endblock %}

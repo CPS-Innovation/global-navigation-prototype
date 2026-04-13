@@ -1,0 +1,318 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+<style>
+    main.case-files {
+    padding-top: 0 !important
+}
+
+#secondary-navigation ul li a {
+    color: #1d70b8;
+    text-decoration: none;
+    /*    font-weight: bold;*/
+    font-size: 19px
+}
+
+#secondary-navigation ul li {
+    box-sizing: border-box;
+    /*    height: 3.125rem;*/
+    padding: 0 15px;
+    /*    float: left;*/
+    /*    line-height: 50px;*/
+    position: relative;
+    list-style-type: none;
+    /* Remove bullets from unordered and ordered lists */
+
+}
+
+#global-navigation {
+    margin-bottom: 0
+}
+
+#secondary-navigation ul:first-child {
+    padding-left: 0;
+}
+
+#secondary-navigation ul li.current {
+
+    /*    position: absolute;
+    bottom: -5px;
+    display: inline-block;
+    height: 5px;
+    background: #1d70b8;
+    left: 0px;
+    right: 0px;
+    content: " ";*/
+/*    font-weight: bold;*/
+
+}
+
+#secondary-navigation ul li.current a {
+      color:#000 !important;
+}
+
+/*#secondary-navigation ul li.current:after {
+      position: absolute;
+    bottom: -12px;
+    display: inline-block;
+    height: 5px;
+    background: #1d70b8;
+    left: 0px;
+    right: 0px;
+    content: " ";
+}*/
+
+#global-navigation ul {
+    position: static;
+
+}
+
+#global-navigation ul li {
+    z-index: 9999;
+}
+
+
+.classicNav:after {
+    content: "";
+    width: 0px;
+    height: 0px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #1d70b8;
+    position: absolute;
+    left: 110px;
+    top: 8px;
+}
+
+.classicNav.active:after {
+    border-top: none;
+    border-bottom: 8px solid #1d70b8; /* Reversed arrow (points up) */
+}
+
+
+
+/* Hide the dropdown menu by default */
+.dropdown-menu {
+    display: none;
+    /*  display: flex;
+    flex-direction: column;*/
+    position: absolute !important;
+    z-index: 99;
+    top: 100%;
+    background: #F5F5F5;
+    right: 30px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-width: 250px;
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
+    border-top: 5px solid #1d70b8;
+
+
+}
+
+.dropdown-menu li  {
+       box-sizing: border-box;
+    height: 2.75rem;
+    padding: 0 15px;
+    float: left;
+    line-height: 50px;
+    position: relative;
+   
+}
+
+.dropdown-menu li a {
+    font-weight:400 !important;
+     font-size:19px;
+    text-decoration:none;
+}
+
+.dropdown-menu li a:hover {
+    color:#5694ca;
+}
+
+.classicNav:hover {
+    color:#5694ca !important ;
+}
+
+.dropdown-menu li:first-child  {
+      margin-top:5px;
+}
+
+.dropdown-menu li:last-child  {
+      margin-bottom:10px;
+}
+
+
+
+/* Show the dropdown menu when the parent has the .show class */
+.menu-item.show .dropdown-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+#test-nav h1 {
+    position: relative;
+}
+
+#test-nav h1:after {
+    position: absolute;
+    content: '';
+/*    right: -20px;*/
+      right: -30px;
+    top: 0;
+    bottom: 0;
+    border-left: 32px solid #f3f2f1;
+    border-bottom: 31px solid transparent;
+    border-top: 31px solid transparent;
+/*    border-left: 22px solid #f3f2f1;
+    border-bottom: 22px solid transparent;
+    border-top: 20px solid transparent;*/
+
+}
+
+#test-nav h1:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: #f3f2f1;
+    left: -1000em;
+    z-index: 1;
+    right: 0;
+}
+
+.moj-sub-navigation__item {
+    padding-top:7px;
+}
+
+/*.moj-sub-navigation__link[aria-current=page]:before {
+    bottom:-8px;
+}*/
+
+@media screen and (max-width: 1450px) {
+  /* Your styles here */
+  .moj-primary-navigation__container {
+        margin-left: 25px !important;
+    }
+}
+
+
+
+
+</style>
+<script src="/public/javascripts/mojall.js"></script>
+<script>
+$(document).ready(function() {
+    $('#global-navigation').show();
+    // $('#secondary-navigation').show();
+    // $('.my-cases').addClass('current');
+    // $('.sub-case').addClass('current');
+
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var dropdownToggle = document.querySelector('.dropdown-toggle');
+    if (!dropdownToggle) return;
+
+    var dropdownMenu = dropdownToggle.nextElementSibling;
+
+    dropdownToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        var parentMenuItem = dropdownToggle.parentElement;
+
+        if (parentMenuItem.classList.contains('show')) {
+            parentMenuItem.classList.remove('show');
+            dropdownToggle.classList.remove('active');
+        } else {
+            var openDropdowns = document.querySelectorAll('.menu-item.show');
+            openDropdowns.forEach(function(dropdown) {
+                dropdown.classList.remove('show');
+                var toggle = dropdown.querySelector('.dropdown-toggle');
+                if (toggle) toggle.classList.remove('active');
+            });
+            parentMenuItem.classList.add('show');
+            dropdownToggle.classList.add('active');
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        var isClickInside = dropdownToggle.contains(e.target) || (dropdownMenu && dropdownMenu.contains(e.target));
+        if (!isClickInside) {
+            dropdownToggle.parentElement.classList.remove('show');
+            dropdownToggle.classList.remove('active');
+        }
+    });
+});
+</script>
+<header class="govuk-header {{ params.classes if params.classes }}" role="banner" data-module="govuk-header" {%- for attribute, value in params.attributes %} {{attribute}}="{{value}}" {% endfor %} style=" border-bottom:10px solid #1d70b8; max-height:60px">
+    <div class="govuk-header__container {{ params.containerClasses | default('govuk-width-container') }}">
+        <div style="display:flex">
+            <div class="govuk-header__logo" style="max-height:30px">
+                <a href="../2-cps-user-journey/A-dashboard" class="govuk-header__link govuk-header__link--homepage">
+                    <span class="govuk-header__logotype" style="height:30px">
+                        <span class="moj-header__link moj-header__link--organisation-name" style="font-size:30px">CPS</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="moj-primary-navigation" style="border-bottom: 1px solid #b1b4b6;">
+    <div class="moj-primary-navigation__container" style="max-width:1400px">
+        <div class="moj-primary-navigation__nav">
+            <nav class="moj-primary-navigation" aria-label="Primary navigation">
+                <ul class="moj-primary-navigation__list">
+                    <li class="moj-primary-navigation__item">
+                        <!-- NOTE THE IF/THEN/ELSE IN THE LINK -->
+                        <a class="moj-primary-navigation__link my-tasks"
+
+                         {% if data.navTabs==true %} target="_blank" {% else %}{% endif %}
+                          href="https://witness-expenses.herokuapp.com/FCT-v1/2-cps-user-journey/C-task-list">Tasks</a>
+                    </li>
+                    <li class="moj-primary-navigation__item">
+                          <!-- NOTE THE IF/THEN/ELSE IN THE LINK -->
+                        <a class="moj-primary-navigation__link my-cases" 
+                         {% if data.navTabs==true %} target="_blank" {% else %}{% endif %}
+                         href="https://witness-expenses.herokuapp.com/FCT-v1/2-cps-user-journey/D-my-cases">Cases</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bottom-border" style="border-bottom: 1px solid #b1b4b6; margin-bottom:40px;">
+    <div class="govuk-width-container">
+        <nav class="moj-sub-navigation" aria-label="Sub navigation" style="margin-bottom:0">
+            <ul class="moj-sub-navigation__list" style="box-shadow:none">
+                <li class="moj-sub-navigation__item" style="padding-top:0">
+                       <!-- NOTE THE IF/THEN/ELSE IN THE LINK -->
+                    <a class="moj-sub-navigation__link sub-overview" 
+                    {% if data.navTabs==true %} target="_blank" {% else %}{% endif %}
+                    href="https://witness-expenses.herokuapp.com/FCT-v1/2-cps-user-journey/E-case-overview">Details</a>
+                </li>
+                <li class="moj-sub-navigation__item" style="padding-top:0">
+                       <!-- NOTE THE IF/THEN/ELSE IN THE LINK -->
+                    <a class="moj-sub-navigation__link sub-case" 
+                    {% if data.navTabs==true %} target="_blank" {% else %}{% endif %}
+                    href="https://as-web-endtoend-ux-dev.azurewebsites.net/version-41/2-cps-user-journey/F-casework-app{% if data.navTabs==true %}?navTabs=true"{% else %}?navTabs=false"{% endif %}>Materials</a>
+                </li>
+                <li class="moj-sub-navigation__item" style="padding-top:0">
+                       <!-- NOTE THE IF/THEN/ELSE IN THE LINK -->
+                    <a class="moj-sub-navigation__link sub-review" 
+                    {% if data.navTabs==true %} target="_blank" {% else %}{% endif %}
+                    href="https://witness-expenses.herokuapp.com/FCT-v1/2-cps-user-journey/L-case-review-html">Review</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<script type="text/javascript">
+if (window.MOJFrontend && typeof MOJFrontend.initAll === 'function') {
+    MOJFrontend.initAll();
+}
+</script>
