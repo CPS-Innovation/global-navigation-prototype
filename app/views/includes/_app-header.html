@@ -1,0 +1,78 @@
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set serviceName = headerServiceName or "Manage a case" %}
+{% set primaryNav = primaryNav or "home" %}
+{% set showCaseContext = showCaseContext if showCaseContext is defined else (primaryNav == "cases") %}
+{% set caseName = caseName or "McLove, Eoin and 4 Others" %}
+{% set caseReference = caseReference or "45AA209820/1" %}
+{% set secondaryNav = secondaryNav or "details" %}
+
+<section class="app-cps-header">
+  <div class="govuk-width-container app-cps-header__container">
+    <p class="app-cps-header__brand">
+      <span class="app-cps-header__organisation">CPS</span>
+      <span class="app-cps-header__service-name">{{ serviceName }}</span>
+    </p>
+  </div>
+</section>
+
+{{ govukServiceNavigation({
+  navigationLabel: "Primary navigation",
+  serviceName: serviceName,
+  serviceUrl: "/FCT-v1/2-cps-user-journey/E-case-overview",
+  classes: "app-primary-navigation",
+  navigation: [
+    {
+      href: "/not-yet-built",
+      text: "Home",
+      active: primaryNav == "home"
+    },
+    {
+      href: "/not-yet-built",
+      text: "Tasks",
+      active: primaryNav == "tasks"
+    },
+    {
+      href: "/FCT-v1/2-cps-user-journey/E-case-overview",
+      text: "Cases",
+      active: primaryNav == "cases"
+    }
+  ]
+}) }}
+
+{% if showCaseContext %}
+  <section class="app-identity-bar" aria-labelledby="app-case-title">
+    <div class="govuk-width-container app-identity-bar__container">
+      <div class="app-identity-bar__details">
+        <div class="app-identity-bar__title">
+          <span class="govuk-!-margin-right-1">{{ caseReference }}</span>
+          <b id="app-case-title">{{ caseName }}</b>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="govuk-width-container app-secondary-navigation__container">
+    {{ xGovukSecondaryNavigation({
+      classes: "app-secondary-navigation",
+      visuallyHiddenTitle: "Secondary navigation",
+      items: [
+        {
+          text: "Details",
+          href: "/FCT-v1/2-cps-user-journey/E-case-overview",
+          current: secondaryNav == "details"
+        },
+        {
+          text: "Materials",
+          href: "/not-yet-built",
+          current: secondaryNav == "materials"
+        },
+        {
+          text: "Review",
+          href: "/not-yet-built",
+          current: secondaryNav == "review"
+        }
+      ]
+    }) }}
+  </div>
+{% endif %}
