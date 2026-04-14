@@ -41,17 +41,6 @@
 }) }}
 
 {% if showCaseContext %}
-  <section class="app-identity-bar" aria-labelledby="app-case-title">
-    <div class="govuk-width-container app-identity-bar__container">
-      <div class="app-identity-bar__details">
-        <div class="app-identity-bar__title">
-          <b id="app-case-title" class="govuk-!-margin-right-1">{{ caseName }}</b>
-          <span>{{ caseReference }}</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <div class="govuk-width-container app-secondary-navigation__container">
     {{ xGovukSecondaryNavigation({
       classes: "app-secondary-navigation",
@@ -75,4 +64,15 @@
       ]
     }) }}
   </div>
+
+  <section class="app-identity-bar" aria-labelledby="app-case-title">
+    <div class="govuk-width-container app-identity-bar__container">
+      <div class="app-identity-bar__details">
+        <div class="app-identity-bar__title">
+          <b id="app-case-title" class="govuk-!-margin-right-1">{{ caseName }}</b>
+          <span>{{ caseReference }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endif %}
