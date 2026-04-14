@@ -6,7 +6,7 @@ const headerPath = path.join(__dirname, '..', 'app', 'views', 'includes', '_app-
 const header = fs.readFileSync(headerPath, 'utf8')
 
 const ctlIndex = header.indexOf('id="app-ctl-summary"')
-const tagIndex = header.indexOf('>YOUTH<')
+const tagIndex = header.indexOf('>Youth<')
 
 assert(ctlIndex !== -1, 'Expected CTL summary placeholder')
 assert(tagIndex !== -1, 'Expected YOUTH tag')
