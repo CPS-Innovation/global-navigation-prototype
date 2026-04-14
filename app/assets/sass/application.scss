@@ -81,6 +81,10 @@ $govuk-font-family: "NewTransportCPS", Arial, sans-serif;
   padding-top: govuk-spacing(2);
 }
 
+.app-identity-bar--after-secondary-nav {
+  padding-top: govuk-spacing(1);
+}
+
 .app-identity-bar__container {
   font-size: 0;
   max-width: 1400px;
@@ -119,6 +123,10 @@ $govuk-font-family: "NewTransportCPS", Arial, sans-serif;
 .app-secondary-navigation {
   border-bottom: 1px solid $govuk-border-colour;
   margin-bottom: govuk-spacing(6);
+}
+
+.app-secondary-navigation--variation {
+  margin-bottom: 0;
 }
 
 .x-govuk-secondary-navigation__link {

@@ -43,7 +43,7 @@
 {% if showCaseContext %}
   <div class="govuk-width-container app-secondary-navigation__container">
     {{ xGovukSecondaryNavigation({
-      classes: "app-secondary-navigation",
+      classes: "app-secondary-navigation app-secondary-navigation--variation",
       visuallyHiddenTitle: "Secondary menu",
       items: [
         {
@@ -65,7 +65,7 @@
     }) }}
   </div>
 
-  <section class="app-identity-bar" aria-labelledby="app-case-title">
+  <section class="app-identity-bar app-identity-bar--after-secondary-nav" aria-labelledby="app-case-title">
     <div class="govuk-width-container app-identity-bar__container">
       <div class="app-identity-bar__details">
         <div class="app-identity-bar__title">
