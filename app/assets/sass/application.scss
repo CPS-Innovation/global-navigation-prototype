@@ -64,6 +64,10 @@ $govuk-font-family: "NewTransportCPS", Arial, sans-serif;
   font-size: 30px;
 }
 
+.app-cps-header--variation .app-cps-header__organisation {
+  margin-right: 0;
+}
+
 .app-primary-navigation {
   border-bottom: 1px solid $govuk-border-colour;
 }
