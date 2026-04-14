@@ -1,3 +1,23 @@
+$govuk-font-family: "NewTransportCPS", Arial, sans-serif;
+
+@font-face {
+  font-family: "NewTransportCPS";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/public/fonts/NewTransportCPS/NewTransportCPS-Regular.woff2") format("woff2"),
+       url("/public/fonts/NewTransportCPS/NewTransportCPS-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "NewTransportCPS";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/public/fonts/NewTransportCPS/NewTransportCPS-Bold.woff2") format("woff2"),
+       url("/public/fonts/NewTransportCPS/NewTransportCPS-Bold.woff") format("woff");
+}
+
 //
 // For guidance on how to add CSS and SCSS see:
 // https://prototype-kit.service.gov.uk/docs/adding-css-javascript-and-images
