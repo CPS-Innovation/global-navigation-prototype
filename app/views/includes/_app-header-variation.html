@@ -72,7 +72,29 @@
           <b id="app-case-title" class="govuk-!-margin-right-1">{{ caseName }}</b>
           <span>{{ caseReference }}</span>
         </div>
+        <div class="app-identity-bar__meta">
+          <span id="app-ctl-summary"></span>
+        </div>
       </div>
     </div>
   </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var futureDate = new Date()
+      futureDate.setDate(futureDate.getDate() + 9)
+
+      var formattedDate = new Intl.DateTimeFormat('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }).format(futureDate)
+
+      var ctlSummary = document.getElementById('app-ctl-summary')
+
+      if (ctlSummary) {
+        ctlSummary.textContent = 'Custody time limit ends ' + formattedDate + ' (9 days)'
+      }
+    })
+  </script>
 {% endif %}
