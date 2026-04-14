@@ -41,6 +41,22 @@
 }) }}
 
 {% if showCaseContext %}
+  <section id="case-information" class="app-identity-bar" aria-labelledby="app-case-title">
+    <div class="govuk-width-container app-identity-bar__container">
+      <div class="app-identity-bar__details">
+        <div class="app-identity-bar__title">
+          <b id="app-case-title" class="govuk-!-margin-right-1">{{ caseName }}</b>
+          <span>{{ caseReference }}</span>
+          <strong class="govuk-tag govuk-tag--blue govuk-!-margin-left-2">Youth</strong>
+          <strong class="govuk-tag govuk-tag--blue govuk-!-margin-left-1">RASSO</strong>
+        </div>
+        <div class="app-identity-bar__meta">
+          <span id="app-ctl-summary"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <div class="govuk-width-container app-secondary-navigation__container">
     {{ xGovukSecondaryNavigation({
       classes: "app-secondary-navigation app-secondary-navigation--variation",
@@ -64,22 +80,6 @@
       ]
     }) }}
   </div>
-
-  <section id="case-information" class="app-identity-bar app-identity-bar--after-secondary-nav" aria-labelledby="app-case-title">
-    <div class="govuk-width-container app-identity-bar__container">
-      <div class="app-identity-bar__details">
-        <div class="app-identity-bar__title">
-          <b id="app-case-title" class="govuk-!-margin-right-1">{{ caseName }}</b>
-          <span>{{ caseReference }}</span>
-          <strong class="govuk-tag govuk-tag--blue govuk-!-margin-left-2">Youth</strong>
-          <strong class="govuk-tag govuk-tag--blue govuk-!-margin-left-1">RASSO</strong>
-        </div>
-        <div class="app-identity-bar__meta">
-          <span id="app-ctl-summary"></span>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
