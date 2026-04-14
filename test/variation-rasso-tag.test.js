@@ -6,6 +6,6 @@ const headerPath = path.join(__dirname, '..', 'app', 'views', 'includes', '_app-
 const header = fs.readFileSync(headerPath, 'utf8')
 
 assert(header.includes('>Youth<'), 'Expected Youth tag')
-assert(header.includes('>Rasso<'), 'Expected Rasso tag')
+assert(header.includes('>RASSO<'), 'Expected RASSO tag')
 
 console.log('variation rasso tag checks passed')
