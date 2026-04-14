@@ -7,14 +7,14 @@
 {% set caseReference = caseReference or "45AA209820/1" %}
 {% set secondaryNav = secondaryNav or "details" %}
 
-<section class="app-cps-header">
+<header class="app-cps-header" role="banner">
   <div class="govuk-width-container app-cps-header__container">
     <p class="app-cps-header__brand">
       <span class="app-cps-header__organisation">CPS</span>
       <span class="app-cps-header__service-name">{{ serviceName }}</span>
     </p>
   </div>
-</section>
+</header>
 
 {{ govukServiceNavigation({
   navigationLabel: "Primary navigation",
@@ -55,7 +55,7 @@
   <div class="govuk-width-container app-secondary-navigation__container">
     {{ xGovukSecondaryNavigation({
       classes: "app-secondary-navigation",
-      visuallyHiddenTitle: "Secondary navigation",
+      visuallyHiddenTitle: "Secondary menu",
       items: [
         {
           text: "Details",
