@@ -1,0 +1,102 @@
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% set serviceName = headerServiceName or "Manage cases" %}
+{% set primaryNav = primaryNav or "home" %}
+{% set showCaseContext = showCaseContext if showCaseContext is defined else (primaryNav == "cases") %}
+{% set caseName = caseName or "McLOVE, Eoin and 4 Others" %}
+{% set caseReference = caseReference or "45AA209820/1" %}
+{% set secondaryNav = secondaryNav or "details" %}
+
+<header class="app-cps-header app-cps-header--variation" role="banner">
+  <div class="govuk-width-container app-cps-header__container">
+    <p class="app-cps-header__brand">
+      <span class="app-cps-header__organisation">CPS</span>
+      <span class="app-cps-header__service-name">{{ serviceName }}</span>
+    </p>
+  </div>
+</header>
+
+{{ govukServiceNavigation({
+  navigationLabel: "Primary navigation",
+  serviceName: serviceName,
+  serviceUrl: "/FCT-v1/2-cps-user-journey/E-case-overview-variation-2",
+  classes: "app-primary-navigation",
+  navigation: [
+    {
+      href: "/not-yet-built",
+      text: "Home",
+      active: primaryNav == "home"
+    },
+    {
+      href: "/not-yet-built",
+      text: "Tasks",
+      active: primaryNav == "tasks"
+    },
+    {
+      href: "/FCT-v1/2-cps-user-journey/E-case-overview-variation-2",
+      text: "Cases",
+      active: primaryNav == "cases"
+    }
+  ]
+}) }}
+
+{% if showCaseContext %}
+  <div class="govuk-width-container app-secondary-navigation__container">
+    {{ xGovukSecondaryNavigation({
+      classes: "app-secondary-navigation app-secondary-navigation--variation",
+      visuallyHiddenTitle: "Secondary menu",
+      items: [
+        {
+          text: "Details",
+          href: "/FCT-v1/2-cps-user-journey/E-case-overview-variation-2",
+          current: secondaryNav == "details"
+        },
+        {
+          text: "Materials",
+          href: "/not-yet-built",
+          current: secondaryNav == "materials"
+        },
+        {
+          text: "Review",
+          href: "/not-yet-built",
+          current: secondaryNav == "review"
+        }
+      ]
+    }) }}
+  </div>
+
+  <section id="case-information" class="app-identity-bar app-identity-bar--after-secondary-nav" aria-labelledby="app-case-title">
+    <div class="govuk-width-container app-identity-bar__container">
+      <div class="app-identity-bar__details">
+        <div class="app-identity-bar__title">
+          <b id="app-case-title" class="govuk-!-margin-right-1">{{ caseName }}</b>
+          <span>{{ caseReference }}</span>
+          <strong class="govuk-tag govuk-tag--blue govuk-!-margin-left-2">Youth</strong>
+          <strong class="govuk-tag govuk-tag--blue govuk-!-margin-left-1">RASSO</strong>
+        </div>
+        <div class="app-identity-bar__meta">
+          <span id="app-ctl-summary"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var futureDate = new Date()
+      futureDate.setDate(futureDate.getDate() + 9)
+
+      var formattedDate = new Intl.DateTimeFormat('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }).format(futureDate)
+
+      var ctlSummary = document.getElementById('app-ctl-summary')
+
+      if (ctlSummary) {
+        ctlSummary.textContent = 'Custody time limit ends ' + formattedDate + ' (9 days)'
+      }
+    })
+  </script>
+{% endif %}
