@@ -10,7 +10,7 @@ assert(home.includes('Case info sits above the secondary navigation and does not
 assert(home.includes('Variation version'), 'Expected homepage to list the variation version')
 assert(home.includes('Moves the case info below the secondary navigation and adds tags plus custody time limit.'), 'Expected variation version description')
 assert(home.includes('Variation 2'), 'Expected homepage to list variation 2')
-assert(home.includes('Same layout as variation 1, with the tag spacing tightened up.'), 'Expected variation 2 description')
+assert(home.includes('Splits the case info bar, with the case name above the secondary navigation and the tags plus custody time limit below.'), 'Expected variation 2 description')
 assert(home.includes('Variation 3'), 'Expected homepage to list variation 3')
 assert(home.includes('Moves the case info back above the secondary navigation, keeping the tags and custody time limit.'), 'Expected variation 3 description')
 
