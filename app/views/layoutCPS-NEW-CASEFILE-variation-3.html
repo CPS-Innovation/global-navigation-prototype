@@ -1,0 +1,13 @@
+{% extends "layouts/main.html" %}
+
+{% set mainClasses = "govuk-main-wrapper--auto-spacing case-files" %}
+
+{% block head %}
+  {{ super() }}
+  {% include "includes/wide.html" %}
+{% endblock %}
+
+{% block header %}
+  <a href="#case-information" class="govuk-skip-link">Skip to case information</a>
+  {% include "includes/_app-header-variation-3.html" %}
+{% endblock %}
