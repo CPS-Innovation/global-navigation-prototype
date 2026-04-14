@@ -1,6 +1,6 @@
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
-{% set serviceName = headerServiceName or "Manage a case" %}
+{% set serviceName = headerServiceName or "Manage cases" %}
 {% set primaryNav = primaryNav or "home" %}
 {% set showCaseContext = showCaseContext if showCaseContext is defined else (primaryNav == "cases") %}
 {% set caseName = caseName or "McLOVE, Eoin and 4 Others" %}
