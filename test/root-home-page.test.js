@@ -7,14 +7,8 @@ assert(fs.existsSync(homePath), 'Expected root home page template to exist at ap
 
 const home = fs.readFileSync(homePath, 'utf8')
 
-assert(
-  home.includes('/FCT-v1/2-cps-user-journey/E-case-overview'),
-  'Expected home page to link to the reference version'
-)
-
-assert(
-  home.includes('/FCT-v1/2-cps-user-journey/E-case-overview-variation'),
-  'Expected home page to link to the variation version'
-)
+assert(home.includes('/FCT-v1/2-cps-user-journey/E-case-overview'), 'Expected home page to link to the reference version')
+assert(home.includes('/FCT-v1/2-cps-user-journey/E-case-overview-variation'), 'Expected home page to link to the variation version')
+assert(home.includes('/FCT-v1/2-cps-user-journey/E-case-overview-variation-2'), 'Expected home page to link to variation 2')
 
 console.log('root home page checks passed')
