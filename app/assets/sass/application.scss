@@ -111,6 +111,10 @@ $govuk-font-family: "NewTransportCPS", Arial, sans-serif;
   vertical-align: top;
 }
 
+.app-identity-bar--after-secondary-nav .app-identity-bar__title {
+  @include govuk-font(19);
+}
+
 .app-identity-bar__meta {
   @include govuk-font(16);
   margin-top: govuk-spacing(1);
