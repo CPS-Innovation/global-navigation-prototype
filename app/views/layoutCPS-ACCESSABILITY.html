@@ -1,0 +1,12 @@
+{% extends "layouts/main.html" %}
+
+{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+
+{% block head %}
+  {{ super() }}
+  {% include "includes/wide.html" %}
+{% endblock %}
+
+{% block header %}
+  {% include "includes/_app-header-accessability.html" %}
+{% endblock %}

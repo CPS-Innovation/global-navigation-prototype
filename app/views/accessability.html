@@ -1,0 +1,35 @@
+{% extends "layoutCPS-ACCESSABILITY.html" %}
+{% set pageName = "Accessability control" %}
+{% set headerServiceName = "Manage cases" %}
+
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-l" style="margin-top:25px">Accessability control</h1>
+  <p class="govuk-body">Use this page to control accessability settings for this prototype.</p>
+
+  {{ govukCheckboxes({
+    name: "accessability-control",
+    fieldset: {
+      legend: {
+        text: "Accessability options",
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    items: [
+      {
+        value: "enabled",
+        text: "Enable accessability control"
+      }
+    ]
+  }) }}
+
+  {{ govukButton({
+    text: "Continue",
+    classes: "app-button--green"
+  }) }}
+{% endblock %}

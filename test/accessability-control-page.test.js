@@ -1,0 +1,86 @@
+const fs = require('fs')
+const path = require('path')
+const assert = require('assert')
+
+const pagePath = path.join(__dirname, '..', 'app', 'views', 'accessability.html')
+const layoutPath = path.join(__dirname, '..', 'app', 'views', 'layoutCPS-ACCESSABILITY.html')
+const headerPath = path.join(__dirname, '..', 'app', 'views', 'includes', '_app-header-accessability.html')
+const sassPath = path.join(__dirname, '..', 'app', 'assets', 'sass', 'application.scss')
+
+assert(fs.existsSync(pagePath), 'Expected accessability control page to exist')
+assert(fs.existsSync(layoutPath), 'Expected accessability control layout to exist')
+assert(fs.existsSync(headerPath), 'Expected accessability control header to exist')
+
+const page = fs.readFileSync(pagePath, 'utf8')
+const layout = fs.readFileSync(layoutPath, 'utf8')
+const header = fs.readFileSync(headerPath, 'utf8')
+const sass = fs.readFileSync(sassPath, 'utf8')
+
+assert(
+  page.includes('{% extends "layoutCPS-ACCESSABILITY.html" %}'),
+  'Expected accessability page to use the accessability layout'
+)
+
+assert(
+  layout.includes('{% include "includes/_app-header-accessability.html" %}'),
+  'Expected accessability layout to include the header-only blue bar'
+)
+
+assert(
+  header.includes('<header class="app-cps-header app-cps-header--variation" role="banner">'),
+  'Expected accessability header to use the same blue bar structure'
+)
+
+assert(
+  !header.includes('govukServiceNavigation') && !header.includes('xGovukSecondaryNavigation'),
+  'Expected accessability header not to include primary or secondary navigation'
+)
+
+assert(
+  /<h1[^>]*class="govuk-heading-l"[^>]*>Accessability control<\/h1>/.test(page) ||
+    /<h1[^>]*class="govuk-heading-xl"[^>]*>Accessability control<\/h1>/.test(page),
+  'Expected accessability page to include an H1'
+)
+
+assert(
+  page.includes('Use this page to control accessability settings for this prototype.'),
+  'Expected accessability page to include starter body copy'
+)
+
+assert(
+  !page.includes('<div class="govuk-width-container">'),
+  'Expected accessability page content not to add a nested width container because govuk/template.njk already provides one'
+)
+
+assert(
+  layout.includes('{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}'),
+  'Expected accessability layout to use the standard GOV.UK main wrapper spacing'
+)
+
+assert(
+  !sass.includes('.app-accessability-main {'),
+  'Expected accessability page not to override GOV.UK main wrapper top spacing'
+)
+
+assert(
+  page.includes('govukCheckboxes({') &&
+    page.includes('name: "accessability-control"') &&
+    page.includes('text: "Enable accessability control"'),
+  'Expected accessability page to include a checkbox control'
+)
+
+assert(
+  page.includes('govukButton({') &&
+    page.includes('text: "Continue"') &&
+    page.includes('classes: "app-button--green"'),
+  'Expected accessability page to include a green Continue button'
+)
+
+assert(
+  sass.includes('.app-button--green,') &&
+    sass.includes('.app-button--green:hover,') &&
+    sass.includes('background-color: #00703c;'),
+  'Expected Continue button to use green button styling'
+)
+
+console.log('accessability control page checks passed')
