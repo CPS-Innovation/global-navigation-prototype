@@ -45,6 +45,19 @@ $govuk-font-family: "NewTransportCPS", Arial, sans-serif;
   margin: 0;
 }
 
+.app-cps-header__links {
+  align-items: center;
+  display: flex;
+  gap: govuk-spacing(3);
+}
+
+.app-cps-header__links-divider {
+  background-color: govuk-colour("white");
+  display: inline-block;
+  height: 16px;
+  width: 1px;
+}
+
 .app-cps-header__accessability,
 .app-cps-header__accessability:link,
 .app-cps-header__accessability:visited,
@@ -54,6 +67,10 @@ $govuk-font-family: "NewTransportCPS", Arial, sans-serif;
   font-family: $govuk-font-family;
   font-size: 16px;
   text-decoration: none;
+}
+
+.app-feedback-page-heading {
+  margin-top: 25px;
 }
 
 .app-button--green,

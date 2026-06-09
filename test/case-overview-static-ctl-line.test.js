@@ -6,8 +6,8 @@ const headerPath = path.join(__dirname, '..', 'app', 'views', 'includes', '_app-
 const header = fs.readFileSync(headerPath, 'utf8')
 
 assert(
-  header.includes('<div class="app-identity-bar__meta">\n          <span>This is a Digital Case File (DCF) case</span>\n        </div>'),
-  'Expected case overview identity bar to include the static DCF line'
+  header.includes('<!--\n        <div class="app-identity-bar__meta">\n          <span>This is a Digital Case File (DCF) case</span>\n        </div>\n        -->'),
+  'Expected case overview identity bar DCF line to be commented out'
 )
 
 assert(

@@ -1,0 +1,37 @@
+{% extends "layoutCPS-ACCESSABILITY.html" %}
+{% set pageName = "Give Feedback" %}
+{% set headerServiceName = "Manage cases" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+<div style="margin-top:25px"></div>
+  {{ govukRadios({
+    name: "feedback-action",
+    fieldset: {
+      legend: {
+        text: "What do you want to do?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l app-feedback-page-heading"
+      }
+    },
+    items: [
+      {
+        value: "report-a-bug",
+        text: "Report a bug"
+      },
+      {
+        value: "get-feedback",
+        text: "Get feedback"
+      }
+    ]
+  }) }}
+
+  {{ govukButton({
+    text: "Continue"
+  }) }}
+{% endblock %}

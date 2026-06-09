@@ -13,10 +13,12 @@ headerFiles.forEach((file) => {
   const header = fs.readFileSync(path.join(__dirname, '..', 'app', 'views', 'includes', file), 'utf8')
 
   assert(
-    header.includes('<div class="govuk-width-container app-primary-navigation__actions">') &&
-      header.includes('<a class="app-primary-navigation__action" href="/not-yet-built">Report an issue</a>') &&
-      header.includes('<a class="app-primary-navigation__action" href="/not-yet-built">Give feedback</a>'),
-    `Expected ${file} to include right-aligned primary navigation action links`
+    header.includes('<!--') &&
+      header.includes('<div class="govuk-width-container app-primary-navigation__actions">') &&
+      header.includes('<a class="app-primary-navigation__action" href="/not-yet-built">Give Feedback</a>') &&
+      header.includes('<a class="app-primary-navigation__action" href="/not-yet-built">Give feedback</a>') &&
+      header.includes('-->'),
+    `Expected ${file} to keep the primary navigation action links commented out`
   )
 })
 

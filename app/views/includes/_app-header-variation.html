@@ -13,7 +13,11 @@
       <span class="app-cps-header__organisation">CPS</span>
       <span class="app-cps-header__service-name">{{ serviceName }}</span>
     </a>
-    <a class="app-cps-header__accessability" href="/accessability">Accessibility settings</a>
+    <div class="app-cps-header__links">
+      <a class="app-cps-header__accessability" href="/feedback">Give feedback</a>
+      <span class="app-cps-header__links-divider" aria-hidden="true"></span>
+      <a class="app-cps-header__accessability" href="/accessability">Accessibility settings</a>
+    </div>
   </div>
 </header>
 
@@ -41,10 +45,12 @@
   ]
 }) }}
 
+<!--
 <div class="govuk-width-container app-primary-navigation__actions">
-  <a class="app-primary-navigation__action" href="/not-yet-built">Report an issue</a>
+  <a class="app-primary-navigation__action" href="/not-yet-built">Give Feedback</a>
   <a class="app-primary-navigation__action" href="/not-yet-built">Give feedback</a>
 </div>
+-->
 
 {% if showCaseContext %}
   <div class="govuk-width-container app-secondary-navigation__container">
