@@ -92,10 +92,40 @@ $govuk-font-family: "NewTransportCPS", Arial, sans-serif;
 
 .app-primary-navigation {
   border-bottom: 1px solid $govuk-border-colour;
+  position: relative;
 }
 
 .app-primary-navigation .govuk-width-container {
   max-width: 1400px;
+}
+
+.app-primary-navigation__actions {
+  display: flex;
+  gap: govuk-spacing(4);
+  justify-content: flex-end;
+  margin-top: -40px;
+  max-width: 1400px;
+  padding-bottom: govuk-spacing(3);
+  position: relative;
+  z-index: 1;
+}
+
+.app-primary-navigation__action {
+  color: $govuk-link-colour;
+  font-family: $govuk-font-family;
+  font-size: 19px;
+  text-decoration: none;
+}
+
+.app-primary-navigation__action:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 40.0525em) {
+  .app-primary-navigation__actions {
+    justify-content: flex-start;
+    margin-top: 0;
+  }
 }
 
 .app-primary-navigation .govuk-service-navigation__service-name {
