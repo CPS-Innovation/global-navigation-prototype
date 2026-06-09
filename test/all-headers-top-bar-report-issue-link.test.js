@@ -14,12 +14,12 @@ headerFiles.forEach((file) => {
   const header = fs.readFileSync(path.join(__dirname, '..', 'app', 'views', 'includes', file), 'utf8')
 
   assert(
-    header.includes('<div class="app-cps-header__links">') &&
-      header.includes('<a class="app-cps-header__accessability" href="/feedback">Give feedback</a>') &&
-      header.includes('<span class="app-cps-header__links-divider" aria-hidden="true"></span>') &&
+    !header.includes('<div class="app-cps-header__links">') &&
+      !header.includes('<a class="app-cps-header__accessability" href="/feedback">Give feedback</a>') &&
+      !header.includes('<span class="app-cps-header__links-divider" aria-hidden="true"></span>') &&
       header.includes('<a class="app-cps-header__accessability" href="/accessability">Accessibility settings</a>'),
-    `Expected ${file} to include Give feedback with a divider before Accessibility settings in the blue header`
+    `Expected ${file} to remove Give feedback and the divider from the blue header`
   )
 })
 
-console.log('all headers top bar report issue link checks passed')
+console.log('all headers top bar feedback removal checks passed')

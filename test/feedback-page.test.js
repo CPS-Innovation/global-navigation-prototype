@@ -3,12 +3,11 @@ const path = require('path')
 const assert = require('assert')
 
 const pagePath = path.join(__dirname, '..', 'app', 'views', 'feedback.html')
-const headerFiles = [
+const primaryHeaderFiles = [
   '_app-header.html',
   '_app-header-variation.html',
   '_app-header-variation-2.html',
-  '_app-header-variation-3.html',
-  '_app-header-accessability.html'
+  '_app-header-variation-3.html'
 ]
 
 assert(fs.existsSync(pagePath), 'Expected feedback page to exist')
@@ -41,12 +40,12 @@ assert(
   'Expected feedback page heading to have a 25px top margin'
 )
 
-headerFiles.forEach((file) => {
+primaryHeaderFiles.forEach((file) => {
   const header = fs.readFileSync(path.join(__dirname, '..', 'app', 'views', 'includes', file), 'utf8')
 
   assert(
-    header.includes('<a class="app-cps-header__accessability" href="/feedback">Give feedback</a>'),
-    `Expected ${file} Give feedback link to point to the feedback page`
+    header.includes('<a class="app-primary-navigation__action" href="/feedback">Give feedback</a>'),
+    `Expected ${file} primary navigation Give feedback link to point to the feedback page`
   )
 })
 
