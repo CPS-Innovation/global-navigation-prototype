@@ -2,7 +2,7 @@
 {% set pageName = "Accessibility settings" %}
 {% set headerServiceName = "Manage cases" %}
 
-{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block beforeContent %}
@@ -10,23 +10,27 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" style="margin-top:25px">Accessibility settings</h1>
-  <!-- <p class="govuk-body">Use this page to control accessibility settings for this prototype.</p> -->
+  <p class="govuk-body">Use this page to control accessibility settings.</p>
 
    <!-- <h2 class="govuk-heading-m" >Accessibility statement</h2> -->
    <p class="govuk-body"><a href="#">View the  accessibility statement (opens in new window)</a></p>
 
-  {{ govukCheckboxes({
+  {{ govukRadios({
     name: "accessability-control",
     fieldset: {
       legend: {
-        text: "Accessibility options",
+        text: "Show the URN at the beginning of the tab name",
         classes: "govuk-fieldset__legend--m"
       }
     },
     items: [
       {
-        value: "enabled",
-        text: "Remove the URN from the beginning of the tab name"
+        value: "yes",
+        text: "Yes"
+      },
+      {
+        value: "no",
+        text: "No"
       }
     ]
   }) }}

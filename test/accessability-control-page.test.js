@@ -63,10 +63,21 @@ assert(
 )
 
 assert(
-  page.includes('govukCheckboxes({') &&
+  page.includes('govukRadios({') &&
     page.includes('name: "accessability-control"') &&
-    page.includes('text: "Remove the URN from the beginning of the tab name"'),
-  'Expected accessability page to include a checkbox control'
+    page.includes('text: "Show the URN at the beginning of the tab name"') &&
+    page.includes('value: "yes"') &&
+    page.includes('text: "Yes"') &&
+    page.includes('value: "no"') &&
+    page.includes('text: "No"'),
+  'Expected accessability page to include a Yes/No radio group for the URN tab name option'
+)
+
+assert(
+  !page.includes('govukCheckboxes({') &&
+    !page.includes('text: "Accessibility options"') &&
+    !page.includes('Remove the URN from the beginning of the tab name'),
+  'Expected accessability page to remove the checkbox and Accessibility options heading'
 )
 
 assert(
