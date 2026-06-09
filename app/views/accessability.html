@@ -1,5 +1,5 @@
 {% extends "layoutCPS-ACCESSABILITY.html" %}
-{% set pageName = "Accessability control" %}
+{% set pageName = "Accessibility settings" %}
 {% set headerServiceName = "Manage cases" %}
 
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
@@ -9,21 +9,24 @@
 {% endblock %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" style="margin-top:25px">Accessability control</h1>
-  <p class="govuk-body">Use this page to control accessability settings for this prototype.</p>
+  <h1 class="govuk-heading-l" style="margin-top:25px">Accessibility settings</h1>
+  <!-- <p class="govuk-body">Use this page to control accessibility settings for this prototype.</p> -->
+
+   <!-- <h2 class="govuk-heading-m" >Accessibility statement</h2> -->
+   <p class="govuk-body"><a href="#">View the  accessibility statement (opens in new window)</a></p>
 
   {{ govukCheckboxes({
     name: "accessability-control",
     fieldset: {
       legend: {
-        text: "Accessability options",
+        text: "Accessibility options",
         classes: "govuk-fieldset__legend--m"
       }
     },
     items: [
       {
         value: "enabled",
-        text: "Enable accessability control"
+        text: "Remove the URN from the beginning of the tab name"
       }
     ]
   }) }}

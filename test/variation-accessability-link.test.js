@@ -9,8 +9,8 @@ const header = fs.readFileSync(headerPath, 'utf8')
 const sass = fs.readFileSync(sassPath, 'utf8')
 
 assert(
-  header.includes('<a class="app-cps-header__accessability" href="/accessability">accessability</a>'),
-  'Expected the variation blue header bar to include an accessability link at the top right'
+  header.includes('<a class="app-cps-header__accessability" href="/accessability">Accessibility settings</a>'),
+  'Expected the variation blue header bar to include an Accessibility settings link at the top right'
 )
 
 assert(

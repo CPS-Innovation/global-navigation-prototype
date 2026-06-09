@@ -37,14 +37,14 @@ assert(
 )
 
 assert(
-  /<h1[^>]*class="govuk-heading-l"[^>]*>Accessability control<\/h1>/.test(page) ||
-    /<h1[^>]*class="govuk-heading-xl"[^>]*>Accessability control<\/h1>/.test(page),
+  /<h1[^>]*class="govuk-heading-l"[^>]*>Accessibility settings<\/h1>/.test(page) ||
+    /<h1[^>]*class="govuk-heading-xl"[^>]*>Accessibility settings<\/h1>/.test(page),
   'Expected accessability page to include an H1'
 )
 
 assert(
-  page.includes('Use this page to control accessability settings for this prototype.'),
-  'Expected accessability page to include starter body copy'
+  page.includes('View the  accessibility statement (opens in new window)'),
+  'Expected accessability page to include the accessibility statement link copy'
 )
 
 assert(
@@ -65,7 +65,7 @@ assert(
 assert(
   page.includes('govukCheckboxes({') &&
     page.includes('name: "accessability-control"') &&
-    page.includes('text: "Enable accessability control"'),
+    page.includes('text: "Remove the URN from the beginning of the tab name"'),
   'Expected accessability page to include a checkbox control'
 )
 
