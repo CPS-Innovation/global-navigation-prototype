@@ -123,14 +123,10 @@ $govuk-font-family: "NewTransportCPS", Arial, sans-serif;
 }
 
 .app-primary-navigation__action {
-  color: $govuk-link-colour;
-  font-family: $govuk-font-family;
+  @include govuk-link-common;
+  @include govuk-link-style-no-underline;
+  @include govuk-link-style-no-visited-state;
   font-size: 16px;
-  text-decoration: none;
-}
-
-.app-primary-navigation__action:hover {
-  text-decoration: underline;
 }
 
 @media (max-width: 40.0525em) {

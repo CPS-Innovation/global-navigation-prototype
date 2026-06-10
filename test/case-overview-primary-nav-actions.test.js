@@ -7,6 +7,7 @@ const sassPath = path.join(__dirname, '..', 'app', 'assets', 'sass', 'applicatio
 
 const header = fs.readFileSync(headerPath, 'utf8')
 const sass = fs.readFileSync(sassPath, 'utf8')
+const primaryActionRule = sass.match(/\.app-primary-navigation__action \{[\s\S]*?\n\}/)?.[0] || ''
 
 assert(
   header.includes('<div class="govuk-width-container app-primary-navigation__actions">') &&
@@ -26,10 +27,11 @@ assert(
 )
 
 assert(
-  sass.includes('.app-primary-navigation__action {') &&
-    sass.includes('font-family: $govuk-font-family;') &&
-    sass.includes('font-size: 16px;'),
-  'Expected primary navigation action to use the same font family and 16px font size'
+  primaryActionRule.includes('@include govuk-link-common;') &&
+    primaryActionRule.includes('@include govuk-link-style-no-underline;') &&
+    primaryActionRule.includes('@include govuk-link-style-no-visited-state;') &&
+    primaryActionRule.includes('font-size: 16px;'),
+  'Expected primary navigation action to use GOV.UK link behaviour while staying 16px'
 )
 
 console.log('case overview primary navigation action checks passed')
