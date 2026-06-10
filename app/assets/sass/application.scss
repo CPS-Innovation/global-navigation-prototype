@@ -45,6 +45,14 @@ $govuk-font-family: "NewTransportCPS", Arial, sans-serif;
   margin: 0;
 }
 
+.app-cps-header__brand,
+.app-cps-header__brand:link,
+.app-cps-header__brand:visited,
+.app-cps-header__brand:hover,
+.app-cps-header__brand:active {
+  text-decoration: none;
+}
+
 .app-cps-header__accessability,
 .app-cps-header__accessability:link,
 .app-cps-header__accessability:visited,
