@@ -37,6 +37,15 @@ assert(
 )
 
 assert(
+  page.includes('{% from "govuk/components/back-link/macro.njk" import govukBackLink %}') &&
+    page.includes('{% block beforeContent %}') &&
+    page.includes('govukBackLink({') &&
+    page.includes('text: "Back"') &&
+    page.includes('href: "javascript:history.back()"'),
+  'Expected accessability page to include a GOV.UK back link before the content'
+)
+
+assert(
   /<h1[^>]*class="govuk-heading-l"[^>]*>Accessibility settings<\/h1>/.test(page) ||
     /<h1[^>]*class="govuk-heading-xl"[^>]*>Accessibility settings<\/h1>/.test(page),
   'Expected accessability page to include an H1'
@@ -55,6 +64,15 @@ assert(
 assert(
   layout.includes('{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}'),
   'Expected accessability layout to use the standard GOV.UK main wrapper spacing'
+)
+
+assert(
+  layout.includes('{% set bodyClasses = "app-accessability-pages" %}') &&
+    layout.includes('.app-accessability-pages footer {') &&
+    layout.includes('display: block;') &&
+    layout.includes('.app-accessability-pages .govuk-footer__copyright-logo {') &&
+    layout.includes('display: inline-block;'),
+  'Expected accessability layout to show the standard GOV.UK footer'
 )
 
 assert(

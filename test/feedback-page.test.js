@@ -3,6 +3,7 @@ const path = require('path')
 const assert = require('assert')
 
 const pagePath = path.join(__dirname, '..', 'app', 'views', 'feedback.html')
+const layoutPath = path.join(__dirname, '..', 'app', 'views', 'layoutCPS-ACCESSABILITY.html')
 const primaryHeaderFiles = [
   '_app-header.html',
   '_app-header-variation.html',
@@ -13,12 +14,31 @@ const primaryHeaderFiles = [
 assert(fs.existsSync(pagePath), 'Expected feedback page to exist')
 
 const page = fs.readFileSync(pagePath, 'utf8')
+const layout = fs.readFileSync(layoutPath, 'utf8')
 const sassPath = path.join(__dirname, '..', 'app', 'assets', 'sass', 'application.scss')
 const sass = fs.readFileSync(sassPath, 'utf8')
 
 assert(
   page.includes('{% extends "layoutCPS-ACCESSABILITY.html" %}'),
   'Expected feedback page to use the same layout as the accessibility page'
+)
+
+assert(
+  page.includes('{% from "govuk/components/back-link/macro.njk" import govukBackLink %}') &&
+    page.includes('{% block beforeContent %}') &&
+    page.includes('govukBackLink({') &&
+    page.includes('text: "Back"') &&
+    page.includes('href: "javascript:history.back()"'),
+  'Expected feedback page to include a GOV.UK back link before the content'
+)
+
+assert(
+  layout.includes('{% set bodyClasses = "app-accessability-pages" %}') &&
+    layout.includes('.app-accessability-pages footer {') &&
+    layout.includes('display: block;') &&
+    layout.includes('.app-accessability-pages .govuk-footer__copyright-logo {') &&
+    layout.includes('display: inline-block;'),
+  'Expected feedback page layout to show the standard GOV.UK footer'
 )
 
 assert(

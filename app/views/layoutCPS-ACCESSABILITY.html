@@ -1,10 +1,20 @@
 {% extends "layouts/main.html" %}
 
 {% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+{% set bodyClasses = "app-accessability-pages" %}
 
 {% block head %}
   {{ super() }}
   {% include "includes/wide.html" %}
+  <style>
+    .app-accessability-pages footer {
+      display: block;
+    }
+
+    .app-accessability-pages .govuk-footer__copyright-logo {
+      display: inline-block;
+    }
+  </style>
 {% endblock %}
 
 {% block header %}
