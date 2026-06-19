@@ -40,8 +40,11 @@
     ]
   }) }}
 
-  {{ govukButton({
-    text: "Continue",
-    classes: "app-button--green"
-  }) }}
+  <div class="govuk-button-group">
+    {{ govukButton({
+      text: "Save and continue",
+      classes: "app-button--green"
+    }) }}
+    <a class="govuk-link" href="javascript:history.back()">Cancel</a>
+  </div>
 {% endblock %}

@@ -100,9 +100,17 @@ assert(
 
 assert(
   page.includes('govukButton({') &&
-    page.includes('text: "Continue"') &&
+    page.includes('text: "Save and continue"') &&
     page.includes('classes: "app-button--green"'),
-  'Expected accessability page to include a green Continue button'
+  'Expected accessability page to include a green Save and continue button'
+)
+
+assert(
+  page.includes('<div class="govuk-button-group">') &&
+    page.indexOf('text: "Save and continue"') < page.indexOf('<a class="govuk-link" href="javascript:history.back()">Cancel</a>') &&
+    page.includes('<a class="govuk-link" href="javascript:history.back()">Cancel</a>') &&
+    page.includes('</div>'),
+  'Expected accessability page to include a Cancel link next to the green button'
 )
 
 assert(
