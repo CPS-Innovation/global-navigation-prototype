@@ -1,4 +1,5 @@
 {% extends "layouts/main.html" %}
+{% from 'govuk/components/footer/macro.njk' import govukFooter %}
 
 {% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
 {% set bodyClasses = "app-accessability-pages" %}
@@ -11,8 +12,12 @@
       display: block;
     }
 
-    .app-accessability-pages .govuk-footer__copyright-logo {
-      display: inline-block;
+    .app-accessability-pages .govuk-footer__crown,
+    .app-accessability-pages .govuk-footer__copyright-logo,
+    .app-accessability-pages .govuk-footer__licence-logo,
+    .app-accessability-pages .govuk-footer__licence-description,
+    .app-accessability-pages .govuk-footer__copyright {
+      display: none;
     }
   </style>
 {% endblock %}
@@ -20,3 +25,33 @@
 {% block header %}
   {% include "includes/_app-header-accessability.html" %}
 {% endblock %}
+
+{% block govukFooter %}
+  {{ govukFooter({
+    meta: {
+      items: [
+        {
+          href: "#",
+          text: "Accessability statement (Opens in new window)",
+          attributes: {
+            target: "_blank",
+            rel: "noopener noreferrer"
+          }
+        },
+        {
+          href: "/manage-prototype/clear-data",
+          text: "Clear data"
+        }
+      ],
+      visuallyHiddenTitle: "Footer links"
+    }
+  }) }}
+{% endblock %}
+
+{#
+Commented out from the accessability footer links:
+{
+  href: "/manage-prototype",
+  text: "Manage your prototype"
+}
+#}

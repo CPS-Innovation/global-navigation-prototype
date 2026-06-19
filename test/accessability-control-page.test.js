@@ -69,10 +69,30 @@ assert(
 assert(
   layout.includes('{% set bodyClasses = "app-accessability-pages" %}') &&
     layout.includes('.app-accessability-pages footer {') &&
-    layout.includes('display: block;') &&
-    layout.includes('.app-accessability-pages .govuk-footer__copyright-logo {') &&
-    layout.includes('display: inline-block;'),
+    layout.includes('display: block;'),
   'Expected accessability layout to show the standard GOV.UK footer'
+)
+
+assert(
+  layout.includes('.app-accessability-pages .govuk-footer__crown') &&
+    layout.includes('.app-accessability-pages .govuk-footer__copyright-logo') &&
+    layout.includes('.app-accessability-pages .govuk-footer__licence-logo') &&
+    layout.includes('.app-accessability-pages .govuk-footer__licence-description') &&
+    layout.includes('.app-accessability-pages .govuk-footer__copyright') &&
+    layout.includes('display: none;'),
+  'Expected accessability layout to hide Crown and OGL footer elements'
+)
+
+assert(
+  layout.includes("{% from 'govuk/components/footer/macro.njk' import govukFooter %}") &&
+    layout.includes('{% block govukFooter %}') &&
+    layout.indexOf('text: "Accessability statement (Opens in new window)"') < layout.indexOf('text: "Clear data"') &&
+    layout.includes('{#') &&
+    layout.includes('text: "Manage your prototype"') &&
+    layout.includes('#}') &&
+    layout.includes('target: "_blank"') &&
+    layout.includes('rel: "noopener noreferrer"'),
+  'Expected accessability layout footer links to show Accessability statement and Clear data, with Manage your prototype commented out'
 )
 
 assert(
