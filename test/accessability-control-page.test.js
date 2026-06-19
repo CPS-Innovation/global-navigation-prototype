@@ -86,7 +86,9 @@ assert(
 assert(
   layout.includes("{% from 'govuk/components/footer/macro.njk' import govukFooter %}") &&
     layout.includes('{% block govukFooter %}') &&
-    layout.indexOf('text: "Accessability statement (Opens in new window)"') < layout.indexOf('text: "Clear data"') &&
+    layout.includes('text: "Accessibility statement (Opens in new window)"') &&
+    !layout.includes('text: "Accessability statement (Opens in new window)"') &&
+    layout.indexOf('text: "Accessibility statement (Opens in new window)"') < layout.indexOf('text: "Clear data"') &&
     layout.includes('{#') &&
     layout.includes('text: "Manage your prototype"') &&
     layout.includes('#}') &&
