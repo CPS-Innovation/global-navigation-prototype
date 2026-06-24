@@ -86,15 +86,18 @@ assert(
 assert(
   layout.includes("{% from 'govuk/components/footer/macro.njk' import govukFooter %}") &&
     layout.includes('{% block govukFooter %}') &&
-    layout.includes('text: "Accessibility statement (Opens in new window)"') &&
-    !layout.includes('text: "Accessability statement (Opens in new window)"') &&
-    layout.indexOf('text: "Accessibility statement (Opens in new window)"') < layout.indexOf('text: "Clear data"') &&
+    layout.includes('text: "Accessibility statement (opens in a new tab)"') &&
+    !layout.includes('text: "Accessibility statement (Opens in new window)"') &&
+    !layout.includes('text: "Accessability statement') &&
     layout.includes('{#') &&
+    layout.includes('text: "Clear data"') &&
     layout.includes('text: "Manage your prototype"') &&
     layout.includes('#}') &&
+    layout.indexOf('text: "Accessibility statement (opens in a new tab)"') < layout.indexOf('{#') &&
+    layout.indexOf('text: "Clear data"') > layout.indexOf('{#') &&
     layout.includes('target: "_blank"') &&
     layout.includes('rel: "noopener noreferrer"'),
-  'Expected accessability layout footer links to show Accessability statement and Clear data, with Manage your prototype commented out'
+  'Expected accessability layout footer to show Accessibility statement with new tab copy and comment out Clear data'
 )
 
 assert(
@@ -111,6 +114,11 @@ assert(
     page.includes('value: "no"') &&
     page.includes('text: "No"'),
   'Expected accessability page to include a Yes/No radio group for the URN tab name option'
+)
+
+assert(
+  page.includes('classes: "govuk-radios--inline"'),
+  'Expected the URN tab name Yes/No radios to use the GOV.UK inline radios option'
 )
 
 assert(
