@@ -52,8 +52,13 @@ assert(
 )
 
 assert(
-  page.includes('View the  accessibility statement (opens in new window)'),
-  'Expected accessability page to include the accessibility statement link copy'
+  page.includes('Use this page to define your accessibility settings.'),
+  'Expected accessability page to use the updated accessibility settings intro copy'
+)
+
+assert(
+  page.includes('View the accessibility statement (opens in a new tab)'),
+  'Expected accessability page to include the updated accessibility statement link copy'
 )
 
 assert(
@@ -138,10 +143,10 @@ assert(
 
 assert(
   page.includes('<div class="govuk-button-group">') &&
-    page.indexOf('text: "Save and continue"') < page.indexOf('<a class="govuk-link" href="javascript:history.back()">Cancel</a>') &&
-    page.includes('<a class="govuk-link" href="javascript:history.back()">Cancel</a>') &&
+    page.includes('text: "Save and continue"') &&
+    page.includes('<!-- <a class="govuk-link" href="javascript:history.back()">Cancel</a> -->') &&
     page.includes('</div>'),
-  'Expected accessability page to include a Cancel link next to the green button'
+  'Expected accessability page to keep the Cancel link commented out next to the green button'
 )
 
 assert(

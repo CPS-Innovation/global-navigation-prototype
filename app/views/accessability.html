@@ -15,10 +15,10 @@
 
 {% block content %}
   <h1 class="govuk-heading-l" style="margin-top:25px">Accessibility settings</h1>
-  <p class="govuk-body">Use this page to control accessibility settings.</p>
+  <p class="govuk-body">Use this page to define your accessibility settings.</p>
 
    <!-- <h2 class="govuk-heading-m" >Accessibility statement</h2> -->
-   <p class="govuk-body"><a href="#">View the  accessibility statement (opens in new window)</a></p>
+   <p class="govuk-body"><a href="#">View the accessibility statement (opens in a new tab)</a></p>
 
   {{ govukRadios({
     name: "accessability-control",
@@ -46,6 +46,6 @@
       text: "Save and continue",
       classes: "app-button--green"
     }) }}
-    <a class="govuk-link" href="javascript:history.back()">Cancel</a>
+    <!-- <a class="govuk-link" href="javascript:history.back()">Cancel</a> -->
   </div>
 {% endblock %}

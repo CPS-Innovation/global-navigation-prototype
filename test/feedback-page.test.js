@@ -36,9 +36,9 @@ assert(
   layout.includes('{% set bodyClasses = "app-accessability-pages" %}') &&
     layout.includes('.app-accessability-pages footer {') &&
     layout.includes('display: block;') &&
-    layout.includes('.app-accessability-pages .govuk-footer__copyright-logo {') &&
-    layout.includes('display: inline-block;'),
-  'Expected feedback page layout to show the standard GOV.UK footer'
+    layout.includes('.app-accessability-pages .govuk-footer__copyright-logo') &&
+    layout.includes('display: none;'),
+  'Expected feedback page layout to show the accessibility footer with Crown and OGL elements hidden'
 )
 
 assert(
@@ -46,7 +46,7 @@ assert(
     page.includes('text: "What do you want to do?"') &&
     page.includes('classes: "govuk-fieldset__legend--l app-feedback-page-heading"') &&
     page.includes('text: "Report a bug"') &&
-    page.includes('text: "Get feedback"'),
+    page.includes('text: "Give feedback on Manage cases"'),
   'Expected feedback page to include the question and two radio buttons'
 )
 
