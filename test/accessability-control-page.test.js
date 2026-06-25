@@ -61,7 +61,7 @@ assert(
 )
 
 assert(
-  page.includes('View the accessibility statement (opens in a new tab)'),
+  page.includes('View the accessibility statement (opens in new tab)'),
   'Expected accessability page to include the updated accessibility statement link copy'
 )
 
@@ -80,6 +80,14 @@ assert(
     layout.includes('.app-accessability-pages footer {') &&
     layout.includes('display: block;'),
   'Expected accessability layout to show the standard GOV.UK footer'
+)
+
+assert(
+  layout.includes('.govuk-template {') &&
+    layout.includes('background-color: var(--govuk-template-background-colour, #f4f8fb) !important;') &&
+    !layout.includes('display: flex;') &&
+    !layout.includes('flex-direction: column;'),
+  'Expected accessability layout to use GOV.UK template background behind the footer without changing the main content layout'
 )
 
 assert(

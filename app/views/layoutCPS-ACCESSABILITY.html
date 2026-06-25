@@ -8,6 +8,10 @@
   {{ super() }}
   {% include "includes/wide.html" %}
   <style>
+    .govuk-template {
+      background-color: var(--govuk-template-background-colour, #f4f8fb) !important;
+    }
+
     .app-accessability-pages footer {
       display: block;
     }
