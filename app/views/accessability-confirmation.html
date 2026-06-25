@@ -1,0 +1,25 @@
+{% extends "layoutCPS-ACCESSABILITY.html" %}
+{% set pageName = "Accessibility settings saved" %}
+{% set headerServiceName = "Manage cases" %}
+{% set pageMainClasses = "govuk-main-wrapper--l" %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ govukPanel({
+        titleText: "Accessibility settings saved",
+        text: "Your changes have been saved"
+      }) }}
+
+      <p class="govuk-body">Your accessibility settings have been updated.</p>
+
+      {{ govukButton({
+        text: "Continue",
+        href: "/"
+      }) }}
+    </div>
+  </div>
+{% endblock %}

@@ -9,7 +9,7 @@
 {% block beforeContent %}
   {{ govukBackLink({
     text: "Back",
-    href: "javascript:history.back()"
+    href: "/"
   }) }}
 {% endblock %}
 
@@ -20,32 +20,35 @@
    <!-- <h2 class="govuk-heading-m" >Accessibility statement</h2> -->
    <p class="govuk-body"><a href="#">View the accessibility statement (opens in a new tab)</a></p>
 
-  {{ govukRadios({
-    name: "accessability-control",
-    classes: "govuk-radios--inline",
-    fieldset: {
-      legend: {
-        text: "Show the URN at the beginning of the tab name",
-        classes: "govuk-fieldset__legend--m"
-      }
-    },
-    items: [
-      {
-        value: "yes",
-        text: "Yes"
+  <form action="/accessability-confirmation" method="post" novalidate>
+    {{ govukRadios({
+      name: "accessability-control",
+      classes: "govuk-radios--inline",
+      fieldset: {
+        legend: {
+          text: "Show the URN at the beginning of the tab name",
+          classes: "govuk-fieldset__legend--m"
+        }
       },
-      {
-        value: "no",
-        text: "No"
-      }
-    ]
-  }) }}
-
-  <div class="govuk-button-group">
-    {{ govukButton({
-      text: "Save and continue",
-      classes: "app-button--green"
+      items: [
+        {
+          value: "yes",
+          text: "Yes",
+          checked: true
+        },
+        {
+          value: "no",
+          text: "No"
+        }
+      ]
     }) }}
-    <!-- <a class="govuk-link" href="javascript:history.back()">Cancel</a> -->
-  </div>
+
+    <div class="govuk-button-group">
+      {{ govukButton({
+        text: "Save and continue",
+        classes: "app-button--green"
+      }) }}
+      <!-- <a class="govuk-link" href="javascript:history.back()">Cancel</a> -->
+    </div>
+  </form>
 {% endblock %}

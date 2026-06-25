@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 {% from 'govuk/components/footer/macro.njk' import govukFooter %}
 
-{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}
+{% set mainClasses = pageMainClasses | default("govuk-main-wrapper--auto-spacing") %}
 {% set bodyClasses = "app-accessability-pages" %}
 
 {% block head %}

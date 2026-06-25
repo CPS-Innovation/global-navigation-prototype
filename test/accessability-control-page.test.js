@@ -3,15 +3,18 @@ const path = require('path')
 const assert = require('assert')
 
 const pagePath = path.join(__dirname, '..', 'app', 'views', 'accessability.html')
+const confirmationPagePath = path.join(__dirname, '..', 'app', 'views', 'accessability-confirmation.html')
 const layoutPath = path.join(__dirname, '..', 'app', 'views', 'layoutCPS-ACCESSABILITY.html')
 const headerPath = path.join(__dirname, '..', 'app', 'views', 'includes', '_app-header-accessability.html')
 const sassPath = path.join(__dirname, '..', 'app', 'assets', 'sass', 'application.scss')
 
 assert(fs.existsSync(pagePath), 'Expected accessability control page to exist')
+assert(fs.existsSync(confirmationPagePath), 'Expected accessability confirmation page to exist')
 assert(fs.existsSync(layoutPath), 'Expected accessability control layout to exist')
 assert(fs.existsSync(headerPath), 'Expected accessability control header to exist')
 
 const page = fs.readFileSync(pagePath, 'utf8')
+const confirmationPage = fs.readFileSync(confirmationPagePath, 'utf8')
 const layout = fs.readFileSync(layoutPath, 'utf8')
 const header = fs.readFileSync(headerPath, 'utf8')
 const sass = fs.readFileSync(sassPath, 'utf8')
@@ -41,8 +44,9 @@ assert(
     page.includes('{% block beforeContent %}') &&
     page.includes('govukBackLink({') &&
     page.includes('text: "Back"') &&
-    page.includes('href: "javascript:history.back()"'),
-  'Expected accessability page to include a GOV.UK back link before the content'
+    page.includes('href: "/"') &&
+    !page.includes('href: "javascript:history.back()"'),
+  'Expected accessability page to include a GOV.UK back link before the content that works without JavaScript'
 )
 
 assert(
@@ -67,8 +71,8 @@ assert(
 )
 
 assert(
-  layout.includes('{% set mainClasses = "govuk-main-wrapper--auto-spacing" %}'),
-  'Expected accessability layout to use the standard GOV.UK main wrapper spacing'
+  layout.includes('{% set mainClasses = pageMainClasses | default("govuk-main-wrapper--auto-spacing") %}'),
+  'Expected accessability layout to use the standard GOV.UK main wrapper spacing by default'
 )
 
 assert(
@@ -128,6 +132,21 @@ assert(
 )
 
 assert(
+  page.includes('value: "yes"') &&
+    page.includes('checked: true') &&
+    page.indexOf('value: "yes"') < page.indexOf('checked: true') &&
+    page.indexOf('checked: true') < page.indexOf('value: "no"'),
+  'Expected the accessability page Yes radio option to be selected by default'
+)
+
+assert(
+  page.includes('<form action="/accessability-confirmation" method="post" novalidate>') &&
+    page.indexOf('<form action="/accessability-confirmation" method="post" novalidate>') < page.indexOf('text: "Save and continue"') &&
+    page.indexOf('text: "Save and continue"') < page.indexOf('</form>'),
+  'Expected Save and continue on the accessability page to submit to the confirmation page using the GOV.UK question page form pattern'
+)
+
+assert(
   !page.includes('govukCheckboxes({') &&
     !page.includes('text: "Accessibility options"') &&
     !page.includes('Remove the URN from the beginning of the tab name'),
@@ -154,6 +173,25 @@ assert(
     sass.includes('.app-button--green:hover,') &&
     sass.includes('background-color: #00703c;'),
   'Expected Continue button to use green button styling'
+)
+
+assert(
+  confirmationPage.includes('{% extends "layoutCPS-ACCESSABILITY.html" %}') &&
+    confirmationPage.includes('{% set pageMainClasses = "govuk-main-wrapper--l" %}') &&
+    confirmationPage.includes('{% from "govuk/components/panel/macro.njk" import govukPanel %}') &&
+    confirmationPage.includes('<div class="govuk-grid-row">') &&
+    confirmationPage.includes('<div class="govuk-grid-column-two-thirds">') &&
+    confirmationPage.includes('govukPanel({') &&
+    confirmationPage.includes('titleText: "Accessibility settings saved"') &&
+    confirmationPage.includes('text: "Your changes have been saved"'),
+  'Expected accessability confirmation page to use the GOV.UK confirmation page pattern with large top spacing and a two-thirds panel column'
+)
+
+assert(
+  confirmationPage.includes('govukButton({') &&
+    confirmationPage.includes('text: "Continue"') &&
+    confirmationPage.includes('href: "/"'),
+  'Expected accessability confirmation page to include a Continue link styled as a GOV.UK button'
 )
 
 console.log('accessability control page checks passed')

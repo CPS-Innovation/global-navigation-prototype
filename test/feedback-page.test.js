@@ -56,6 +56,11 @@ assert(
 )
 
 assert(
+  !page.includes('/accessability-confirmation'),
+  'Expected feedback page not to submit to the accessability confirmation page'
+)
+
+assert(
   sass.includes('.app-feedback-page-heading {') && sass.includes('margin-top: 25px;'),
   'Expected feedback page heading to have a 25px top margin'
 )
