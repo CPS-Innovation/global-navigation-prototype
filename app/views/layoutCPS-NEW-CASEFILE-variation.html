@@ -1,13 +1,49 @@
 {% extends "layouts/main.html" %}
+{% from 'govuk/components/footer/macro.njk' import govukFooter %}
 
 {% set mainClasses = "govuk-main-wrapper--auto-spacing case-files" %}
 
 {% block head %}
   {{ super() }}
   {% include "includes/wide.html" %}
+  <style>
+    .govuk-template {
+      background-color: var(--govuk-template-background-colour, #f4f8fb) !important;
+    }
+
+    footer {
+      display: block;
+    }
+
+    .govuk-footer__crown,
+    .govuk-footer__copyright-logo,
+    .govuk-footer__licence-logo,
+    .govuk-footer__licence-description,
+    .govuk-footer__copyright {
+      display: none;
+    }
+  </style>
 {% endblock %}
 
 {% block header %}
   <a href="#case-information" class="govuk-skip-link">Skip to case information</a>
   {% include "includes/_app-header-variation.html" %}
+{% endblock %}
+
+{% block govukFooter %}
+  {{ govukFooter({
+    meta: {
+      items: [
+        {
+          href: "#",
+          text: "Accessibility statement (opens in new tab)",
+          attributes: {
+            target: "_blank",
+            rel: "noopener noreferrer"
+          }
+        }
+      ],
+      visuallyHiddenTitle: "Footer links"
+    }
+  }) }}
 {% endblock %}

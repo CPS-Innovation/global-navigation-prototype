@@ -4,3 +4,35 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 #}
 
 {% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
+{% from 'govuk/components/footer/macro.njk' import govukFooter %}
+
+{% block head %}
+  {{ super() }}
+  <style>
+    .govuk-footer__crown,
+    .govuk-footer__copyright-logo,
+    .govuk-footer__licence-logo,
+    .govuk-footer__licence-description,
+    .govuk-footer__copyright {
+      display: none;
+    }
+  </style>
+{% endblock %}
+
+{% block govukFooter %}
+  {{ govukFooter({
+    meta: {
+      items: [
+        {
+          href: "#",
+          text: "Accessibility statement (opens in new tab)",
+          attributes: {
+            target: "_blank",
+            rel: "noopener noreferrer"
+          }
+        }
+      ],
+      visuallyHiddenTitle: "Footer links"
+    }
+  }) }}
+{% endblock %}
