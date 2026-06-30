@@ -1,0 +1,62 @@
+{% extends "layouts/main.html" %}
+{% from 'govuk/components/footer/macro.njk' import govukFooter %}
+
+{% set mainClasses = pageMainClasses | default("govuk-main-wrapper--auto-spacing") %}
+{% set bodyClasses = "app-accessability-pages" %}
+
+{% block head %}
+  {{ super() }}
+  {% include "includes/wide.html" %}
+  <style>
+    .govuk-template {
+      background-color: var(--govuk-template-background-colour, #f4f8fb) !important;
+    }
+
+    .app-accessability-pages footer {
+      display: block;
+    }
+
+    .app-accessability-pages .govuk-footer__crown,
+    .app-accessability-pages .govuk-footer__copyright-logo,
+    .app-accessability-pages .govuk-footer__licence-logo,
+    .app-accessability-pages .govuk-footer__licence-description,
+    .app-accessability-pages .govuk-footer__copyright {
+      display: none;
+    }
+  </style>
+{% endblock %}
+
+{% block header %}
+  {% include "includes/_app-header-accessability-alternate-a11y.html" %}
+{% endblock %}
+
+{% block govukFooter %}
+  {{ govukFooter({
+    meta: {
+      items: [
+        {
+          href: "#",
+          text: "Accessibility statement (opens in new tab)",
+          attributes: {
+            target: "_blank",
+            rel: "noopener noreferrer"
+          }
+        }
+      ],
+      visuallyHiddenTitle: "Footer links"
+    }
+  }) }}
+{% endblock %}
+
+{#
+Commented out from the accessability footer links:
+{
+  href: "/manage-prototype/clear-data",
+  text: "Clear data"
+}
+
+{
+  href: "/manage-prototype",
+  text: "Manage your prototype"
+}
+#}

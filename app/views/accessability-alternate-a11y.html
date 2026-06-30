@@ -1,0 +1,52 @@
+{% extends "layoutCPS-ACCESSABILITY-alternate-a11y.html" %}
+{% set pageName = "Accessibility settings" %}
+{% set headerServiceName = "Manage cases" %}
+
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/FCT-v1/2-cps-user-journey/E-case-overview-alternate-a11y"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if showAccessibilitySettingsSaved %}
+        {{ govukNotificationBanner({
+          type: "success",
+          titleText: "Success",
+          html: "Accessibility settings saved"
+        }) }}
+      {% endif %}
+
+      <h1 class="govuk-heading-l">Accessibility settings</h1>
+
+      <p class="govuk-body">Use this page to define your accessibility settings.</p>
+      <p class="govuk-body"><a class="govuk-link" href="#">View the accessibility statement (opens in new tab)</a></p>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "Show the URN at the beginning of the tab name" },
+            value: { text: data["accessability-control"] | default("yes") | capitalize },
+            actions: {
+              items: [
+                {
+                  href: "/accessability-alternate-a11y-urn-tab-name",
+                  text: "Change",
+                  visuallyHiddenText: "show the URN at the beginning of the tab name"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+    </div>
+  </div>
+{% endblock %}
