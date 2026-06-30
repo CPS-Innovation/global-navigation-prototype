@@ -148,10 +148,10 @@ assert(
 )
 
 assert(
-  page.includes('<form action="/accessability-confirmation" method="post" novalidate>') &&
-    page.indexOf('<form action="/accessability-confirmation" method="post" novalidate>') < page.indexOf('text: "Save and continue"') &&
+  page.includes('<form action="/accessability-check-your-answers" method="post" novalidate>') &&
+    page.indexOf('<form action="/accessability-check-your-answers" method="post" novalidate>') < page.indexOf('text: "Save and continue"') &&
     page.indexOf('text: "Save and continue"') < page.indexOf('</form>'),
-  'Expected Save and continue on the accessability page to submit to the confirmation page using the GOV.UK question page form pattern'
+  'Expected Save and continue on the accessability page to submit to the check your answers page using the GOV.UK question page form pattern'
 )
 
 assert(
@@ -196,10 +196,10 @@ assert(
 )
 
 assert(
-  confirmationPage.includes('govukButton({') &&
-    confirmationPage.includes('text: "Continue"') &&
-    confirmationPage.includes('href: "/"'),
-  'Expected accessability confirmation page to include a Continue link styled as a GOV.UK button'
+  !confirmationPage.includes('govukButton({') &&
+    !confirmationPage.includes('text: "Continue"') &&
+    confirmationPage.includes('<a class="govuk-link" href="/">Return to your task</a>'),
+  'Expected accessability confirmation page to include a Return to your task link instead of a button'
 )
 
 console.log('accessability control page checks passed')
