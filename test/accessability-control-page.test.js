@@ -197,9 +197,25 @@ assert(
 
 assert(
   !confirmationPage.includes('govukButton({') &&
-    !confirmationPage.includes('text: "Continue"') &&
-    confirmationPage.includes('<a class="govuk-link" href="/">Return to your task</a>'),
-  'Expected accessability confirmation page to include a Return to your task link instead of a button'
+    !confirmationPage.includes('text: "Continue"'),
+  'Expected accessability confirmation page not to include a button'
+)
+
+assert(
+  confirmationPage.includes('<p class="govuk-body">Your accessibility settings have been updated.</p>') &&
+    confirmationPage.includes('<h2 class="govuk-heading-m">Next steps</h2>') &&
+    confirmationPage.includes('<p class="govuk-body">You can:</p>') &&
+    confirmationPage.includes('<ul class="govuk-list govuk-list--bullet">') &&
+    confirmationPage.includes('<a class="govuk-link" href="/FCT-v1/2-cps-user-journey/E-case-overview">return to your task</a>') &&
+    confirmationPage.includes('<a class="govuk-link" href="/">return to the homepage</a>') &&
+    confirmationPage.includes('<a class="govuk-link" href="/accessability">make another change to your accessibility settings</a>') &&
+    !confirmationPage.includes('>Return to your task</a>') &&
+    !confirmationPage.includes('>Return to the homepage</a>') &&
+    !confirmationPage.includes('>Make another change to your accessibility settings</a>') &&
+    confirmationPage.indexOf('<p class="govuk-body">Your accessibility settings have been updated.</p>') < confirmationPage.indexOf('<h2 class="govuk-heading-m">Next steps</h2>') &&
+    confirmationPage.indexOf('<h2 class="govuk-heading-m">Next steps</h2>') < confirmationPage.indexOf('<p class="govuk-body">You can:</p>') &&
+    confirmationPage.indexOf('<p class="govuk-body">You can:</p>') < confirmationPage.indexOf('<ul class="govuk-list govuk-list--bullet">'),
+  'Expected accessability confirmation page to show Next steps with GOV.UK bullet links using a lead-in line and lowercase list item text'
 )
 
 console.log('accessability control page checks passed')
