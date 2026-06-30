@@ -68,8 +68,8 @@ assert(
 )
 
 assert(
-  confirmationPage.includes('titleText: "Accessibility settings saved"'),
-  'Expected the existing confirmation page to remain the next step after check your answers'
+  confirmationPage.includes('titleText: "Your accessibility settings have been updated."'),
+  'Expected the existing confirmation page with the updated H1 to remain the next step after check your answers'
 )
 
 console.log('accessibility check your answers page checks passed')

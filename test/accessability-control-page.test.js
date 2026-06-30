@@ -171,9 +171,11 @@ assert(
 assert(
   page.includes('<div class="govuk-button-group">') &&
     page.includes('text: "Save and continue"') &&
-    page.includes('<!-- <a class="govuk-link" href="javascript:history.back()">Cancel</a> -->') &&
+    page.includes('<a class="govuk-link" href="/">Cancel</a>') &&
+    !page.includes('<!-- <a class="govuk-link" href="javascript:history.back()">Cancel</a> -->') &&
+    !page.includes('href="javascript:history.back()"') &&
     page.includes('</div>'),
-  'Expected accessability page to keep the Cancel link commented out next to the green button'
+  'Expected accessability page to show a non-JavaScript Cancel link next to the green button'
 )
 
 assert(
@@ -190,9 +192,10 @@ assert(
     confirmationPage.includes('<div class="govuk-grid-row">') &&
     confirmationPage.includes('<div class="govuk-grid-column-two-thirds">') &&
     confirmationPage.includes('govukPanel({') &&
-    confirmationPage.includes('titleText: "Accessibility settings saved"') &&
-    confirmationPage.includes('text: "Your changes have been saved"'),
-  'Expected accessability confirmation page to use the GOV.UK confirmation page pattern with large top spacing and a two-thirds panel column'
+    confirmationPage.includes('titleText: "Your accessibility settings have been updated."') &&
+    confirmationPage.includes('{# text: "Your changes have been saved" #}') &&
+    !confirmationPage.includes('text: "Your changes have been saved"\n'),
+  'Expected accessability confirmation page to use the GOV.UK confirmation page pattern with the updated H1 and commented-out panel body text'
 )
 
 assert(
@@ -202,17 +205,18 @@ assert(
 )
 
 assert(
-  confirmationPage.includes('<p class="govuk-body">Your accessibility settings have been updated.</p>') &&
+  !confirmationPage.includes('<p class="govuk-body">Your accessibility settings have been updated.</p>') &&
     confirmationPage.includes('<h2 class="govuk-heading-m">Next steps</h2>') &&
     confirmationPage.includes('<p class="govuk-body">You can:</p>') &&
     confirmationPage.includes('<ul class="govuk-list govuk-list--bullet">') &&
     confirmationPage.includes('<a class="govuk-link" href="/FCT-v1/2-cps-user-journey/E-case-overview">return to your task</a>') &&
-    confirmationPage.includes('<a class="govuk-link" href="/">return to the homepage</a>') &&
+    confirmationPage.includes('<a class="govuk-link" href="/">go to the homepage</a>') &&
     confirmationPage.includes('<a class="govuk-link" href="/accessability">make another change to your accessibility settings</a>') &&
     !confirmationPage.includes('>Return to your task</a>') &&
     !confirmationPage.includes('>Return to the homepage</a>') &&
+    !confirmationPage.includes('>return to the homepage</a>') &&
     !confirmationPage.includes('>Make another change to your accessibility settings</a>') &&
-    confirmationPage.indexOf('<p class="govuk-body">Your accessibility settings have been updated.</p>') < confirmationPage.indexOf('<h2 class="govuk-heading-m">Next steps</h2>') &&
+    confirmationPage.indexOf('titleText: "Your accessibility settings have been updated."') < confirmationPage.indexOf('<h2 class="govuk-heading-m">Next steps</h2>') &&
     confirmationPage.indexOf('<h2 class="govuk-heading-m">Next steps</h2>') < confirmationPage.indexOf('<p class="govuk-body">You can:</p>') &&
     confirmationPage.indexOf('<p class="govuk-body">You can:</p>') < confirmationPage.indexOf('<ul class="govuk-list govuk-list--bullet">'),
   'Expected accessability confirmation page to show Next steps with GOV.UK bullet links using a lead-in line and lowercase list item text'

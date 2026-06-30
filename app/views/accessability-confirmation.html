@@ -8,18 +8,16 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+      {# text: "Your changes have been saved" #}
       {{ govukPanel({
-        titleText: "Accessibility settings saved",
-        text: "Your changes have been saved"
+        titleText: "Your accessibility settings have been updated."
       }) }}
-
-      <p class="govuk-body">Your accessibility settings have been updated.</p>
 
       <h2 class="govuk-heading-m">Next steps</h2>
       <p class="govuk-body">You can:</p>
       <ul class="govuk-list govuk-list--bullet">
         <li><a class="govuk-link" href="/FCT-v1/2-cps-user-journey/E-case-overview">return to your task</a></li>
-        <li><a class="govuk-link" href="/">return to the homepage</a></li>
+        <li><a class="govuk-link" href="/">go to the homepage</a></li>
         <li><a class="govuk-link" href="/accessability">make another change to your accessibility settings</a></li>
       </ul>
     </div>
