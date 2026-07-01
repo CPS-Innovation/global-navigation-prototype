@@ -1,24 +1,17 @@
 {% extends "layoutCPS-ACCESSABILITY.html" %}
 {% set pageName = "Accessibility settings" %}
 {% set headerServiceName = "Manage cases" %}
+{% set pageMainClasses = "govuk-!-static-padding-top-7" %}
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-
-{% block beforeContent %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "/"
-  }) }}
-{% endblock %}
 
 {% block content %}
-  <h1 class="govuk-heading-l" style="margin-top:25px">Accessibility settings</h1>
+  <h1 class="govuk-heading-l">Accessibility settings</h1>
   <p class="govuk-body">Use this page to define your accessibility settings.</p>
 
    <!-- <h2 class="govuk-heading-m" >Accessibility statement</h2> -->
-   <p class="govuk-body"><a href="#">View the accessibility statement (opens in new tab)</a></p>
+   {# <p class="govuk-body"><a href="#">View the accessibility statement (opens in new tab)</a></p> #}
 
   <form action="/accessability-check-your-answers" method="post" novalidate>
     {{ govukRadios({
@@ -45,10 +38,9 @@
 
     <div class="govuk-button-group">
       {{ govukButton({
-        text: "Save and continue",
+        text: "Continue",
         classes: "app-button--green"
       }) }}
-      <a class="govuk-link" href="/">Cancel</a>
     </div>
   </form>
 {% endblock %}

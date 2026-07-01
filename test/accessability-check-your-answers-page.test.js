@@ -16,8 +16,9 @@ const layout = fs.readFileSync(layoutPath, 'utf8')
 
 assert(
   settingsPage.includes('<form action="/accessability-check-your-answers" method="post" novalidate>') &&
-    settingsPage.indexOf('<form action="/accessability-check-your-answers" method="post" novalidate>') < settingsPage.indexOf('text: "Save and continue"'),
-  'Expected accessibility settings form to post to the check your answers page'
+    settingsPage.indexOf('<form action="/accessability-check-your-answers" method="post" novalidate>') < settingsPage.indexOf('text: "Continue"') &&
+    !settingsPage.includes('text: "Save and continue"'),
+  'Expected accessibility settings form to post to the check your answers page using a Continue button'
 )
 
 assert(
@@ -34,16 +35,15 @@ assert(
 assert(
   checkAnswersPage.includes('{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}') &&
     checkAnswersPage.includes('{% from "govuk/components/button/macro.njk" import govukButton %}') &&
-    checkAnswersPage.includes('{% from "govuk/components/back-link/macro.njk" import govukBackLink %}'),
-  'Expected check your answers page to use standard GOV.UK summary list, button and back link macros'
+    !checkAnswersPage.includes('{% from "govuk/components/back-link/macro.njk" import govukBackLink %}'),
+  'Expected check your answers page to use standard GOV.UK summary list and button macros, with no back link macro'
 )
 
 assert(
-  checkAnswersPage.includes('{% block beforeContent %}') &&
-    checkAnswersPage.includes('govukBackLink({') &&
-    checkAnswersPage.includes('text: "Back"') &&
-    checkAnswersPage.includes('href: "/accessability"'),
-  'Expected check your answers page to include a GOV.UK back link to the accessibility settings page'
+  !checkAnswersPage.includes('{% block beforeContent %}') &&
+    !checkAnswersPage.includes('govukBackLink({') &&
+    !checkAnswersPage.includes('text: "Back"'),
+  'Expected check your answers page to remove the Back link from the journey'
 )
 
 assert(
@@ -68,7 +68,7 @@ assert(
 )
 
 assert(
-  confirmationPage.includes('titleText: "Your accessibility settings have been updated."'),
+  confirmationPage.includes('titleText: "Your accessibility settings have been updated"'),
   'Expected the existing confirmation page with the updated H1 to remain the next step after check your answers'
 )
 

@@ -1,7 +1,7 @@
 {% extends "layoutCPS-ACCESSABILITY.html" %}
 {% set pageName = "Accessibility settings saved" %}
 {% set headerServiceName = "Manage cases" %}
-{% set pageMainClasses = "govuk-main-wrapper--l" %}
+{% set pageMainClasses = "govuk-!-static-padding-top-7" %}
 
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 
@@ -10,9 +10,10 @@
     <div class="govuk-grid-column-two-thirds">
       {# text: "Your changes have been saved" #}
       {{ govukPanel({
-        titleText: "Your accessibility settings have been updated."
+        titleText: "Your accessibility settings have been updated"
       }) }}
 
+      {#
       <h2 class="govuk-heading-m">Next steps</h2>
       <p class="govuk-body">You can:</p>
       <ul class="govuk-list govuk-list--bullet">
@@ -20,6 +21,7 @@
         <li><a class="govuk-link" href="/">go to the homepage</a></li>
         <li><a class="govuk-link" href="/accessability">make another change to your accessibility settings</a></li>
       </ul>
+      #}
     </div>
   </div>
 {% endblock %}

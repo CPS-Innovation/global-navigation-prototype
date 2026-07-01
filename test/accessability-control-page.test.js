@@ -35,24 +35,34 @@ assert(
 )
 
 assert(
-  !header.includes('govukServiceNavigation') && !header.includes('xGovukSecondaryNavigation'),
-  'Expected accessability header not to include primary or secondary navigation'
+  !header.includes('{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}') &&
+    !header.includes('govukServiceNavigation({') &&
+    !header.includes('navigationLabel: "Primary navigation"') &&
+    !header.includes('text: "Home"') &&
+    !header.includes('text: "Tasks"') &&
+    !header.includes('text: "Cases"') &&
+    !header.includes('active:') &&
+    !header.includes('xGovukSecondaryNavigation') &&
+    !header.includes('app-identity-bar') &&
+    !header.includes('app-primary-navigation__actions') &&
+    !header.includes('app-cps-header__accessability') &&
+    !header.includes('Accessibility settings</a>'),
+  'Expected accessability header to omit primary navigation, case context, extra action row and accessibility settings link'
 )
 
 assert(
-  page.includes('{% from "govuk/components/back-link/macro.njk" import govukBackLink %}') &&
-    page.includes('{% block beforeContent %}') &&
-    page.includes('govukBackLink({') &&
-    page.includes('text: "Back"') &&
-    page.includes('href: "/"') &&
+  !page.includes('{% from "govuk/components/back-link/macro.njk" import govukBackLink %}') &&
+    !page.includes('{% block beforeContent %}') &&
+    !page.includes('govukBackLink({') &&
+    !page.includes('text: "Back"') &&
     !page.includes('href: "javascript:history.back()"'),
-  'Expected accessability page to include a GOV.UK back link before the content that works without JavaScript'
+  'Expected accessability page to remove the Back link from the journey'
 )
 
 assert(
-  /<h1[^>]*class="govuk-heading-l"[^>]*>Accessibility settings<\/h1>/.test(page) ||
-    /<h1[^>]*class="govuk-heading-xl"[^>]*>Accessibility settings<\/h1>/.test(page),
-  'Expected accessability page to include an H1'
+  page.includes('<h1 class="govuk-heading-l">Accessibility settings</h1>') &&
+    !page.includes('style="margin-top:25px"'),
+  'Expected accessability page to use the standard GOV.UK H1 spacing without inline margin overrides'
 )
 
 assert(
@@ -61,8 +71,11 @@ assert(
 )
 
 assert(
-  page.includes('View the accessibility statement (opens in new tab)'),
-  'Expected accessability page to include the updated accessibility statement link copy'
+  page.includes('<!-- <h2 class="govuk-heading-m" >Accessibility statement</h2> -->') &&
+    page.includes('{#') &&
+    page.includes('View the accessibility statement (opens in new tab)') &&
+    page.includes('#}'),
+  'Expected accessability page body to comment out the accessibility statement link copy'
 )
 
 assert(
@@ -103,7 +116,10 @@ assert(
 assert(
   layout.includes("{% from 'govuk/components/footer/macro.njk' import govukFooter %}") &&
     layout.includes('{% block govukFooter %}') &&
+    layout.includes('href: "/accessability"') &&
+    layout.includes('text: "Accessibility settings (opens in new tab)"') &&
     layout.includes('text: "Accessibility statement (opens in new tab)"') &&
+    layout.indexOf('text: "Accessibility settings (opens in new tab)"') < layout.indexOf('text: "Accessibility statement (opens in new tab)"') &&
     !layout.includes('text: "Accessibility statement (opens in a new tab)"') &&
     !layout.includes('text: "Accessibility statement (Opens in new window)"') &&
     !layout.includes('text: "Accessability statement') &&
@@ -115,13 +131,23 @@ assert(
     layout.indexOf('text: "Clear data"') > layout.indexOf('{#') &&
     layout.includes('target: "_blank"') &&
     layout.includes('rel: "noopener noreferrer"'),
-  'Expected accessability layout footer to show Accessibility statement with opens in new tab copy and comment out Clear data'
+  'Expected accessability layout footer to show Accessibility settings with opens in new tab copy before Accessibility statement and comment out Clear data'
 )
 
 assert(
-  !sass.includes('.app-accessability-main {'),
-  'Expected accessability page not to override GOV.UK main wrapper top spacing'
+  !sass.includes('.app-accessability-main {') &&
+    !sass.includes('.app-accessability-pages .app-primary-navigation__actions'),
+  'Expected accessability page not to override GOV.UK spacing between primary navigation, back link, H1 or confirmation panel'
 )
+
+assert(
+  layout.includes('{% set mainClasses = pageMainClasses | default("govuk-main-wrapper--auto-spacing") %}') &&
+    page.includes('{% set pageMainClasses = "govuk-!-static-padding-top-7" %}') &&
+    confirmationPage.includes('{% set pageMainClasses = "govuk-!-static-padding-top-7" %}') &&
+    !confirmationPage.includes('{% set pageMainClasses = "govuk-main-wrapper--l" %}'),
+  'Expected accessibility pages to use GOV.UK static spacing override 7, 40px, for the Back link to H1 gap and top-of-page to success panel gap'
+)
+
 
 assert(
   page.includes('govukRadios({') &&
@@ -149,9 +175,9 @@ assert(
 
 assert(
   page.includes('<form action="/accessability-check-your-answers" method="post" novalidate>') &&
-    page.indexOf('<form action="/accessability-check-your-answers" method="post" novalidate>') < page.indexOf('text: "Save and continue"') &&
-    page.indexOf('text: "Save and continue"') < page.indexOf('</form>'),
-  'Expected Save and continue on the accessability page to submit to the check your answers page using the GOV.UK question page form pattern'
+    page.indexOf('<form action="/accessability-check-your-answers" method="post" novalidate>') < page.indexOf('text: "Continue"') &&
+    page.indexOf('text: "Continue"') < page.indexOf('</form>'),
+  'Expected Continue on the accessability page to submit to the check your answers page using the GOV.UK question page form pattern'
 )
 
 assert(
@@ -163,19 +189,20 @@ assert(
 
 assert(
   page.includes('govukButton({') &&
-    page.includes('text: "Save and continue"') &&
+    page.includes('text: "Continue"') &&
+    !page.includes('text: "Save and continue"') &&
     page.includes('classes: "app-button--green"'),
-  'Expected accessability page to include a green Save and continue button'
+  'Expected accessability page to include a green Continue button'
 )
 
 assert(
   page.includes('<div class="govuk-button-group">') &&
-    page.includes('text: "Save and continue"') &&
-    page.includes('<a class="govuk-link" href="/">Cancel</a>') &&
-    !page.includes('<!-- <a class="govuk-link" href="javascript:history.back()">Cancel</a> -->') &&
+    page.includes('text: "Continue"') &&
+    !page.includes('<a class="govuk-link" href="/">Cancel</a>') &&
+    !page.includes('Cancel') &&
     !page.includes('href="javascript:history.back()"') &&
     page.includes('</div>'),
-  'Expected accessability page to show a non-JavaScript Cancel link next to the green button'
+  'Expected accessability page to remove the Cancel link and show only the green Continue button'
 )
 
 assert(
@@ -187,12 +214,13 @@ assert(
 
 assert(
   confirmationPage.includes('{% extends "layoutCPS-ACCESSABILITY.html" %}') &&
-    confirmationPage.includes('{% set pageMainClasses = "govuk-main-wrapper--l" %}') &&
+    confirmationPage.includes('{% set pageMainClasses = "govuk-!-static-padding-top-7" %}') &&
+    !confirmationPage.includes('{% set pageMainClasses = "govuk-main-wrapper--l" %}') &&
     confirmationPage.includes('{% from "govuk/components/panel/macro.njk" import govukPanel %}') &&
     confirmationPage.includes('<div class="govuk-grid-row">') &&
     confirmationPage.includes('<div class="govuk-grid-column-two-thirds">') &&
     confirmationPage.includes('govukPanel({') &&
-    confirmationPage.includes('titleText: "Your accessibility settings have been updated."') &&
+    confirmationPage.includes('titleText: "Your accessibility settings have been updated"') &&
     confirmationPage.includes('{# text: "Your changes have been saved" #}') &&
     !confirmationPage.includes('text: "Your changes have been saved"\n'),
   'Expected accessability confirmation page to use the GOV.UK confirmation page pattern with the updated H1 and commented-out panel body text'
@@ -206,20 +234,17 @@ assert(
 
 assert(
   !confirmationPage.includes('<p class="govuk-body">Your accessibility settings have been updated.</p>') &&
+    !confirmationPage.includes('titleText: "Your accessibility settings have been updated."') &&
+    confirmationPage.includes('{#') &&
     confirmationPage.includes('<h2 class="govuk-heading-m">Next steps</h2>') &&
     confirmationPage.includes('<p class="govuk-body">You can:</p>') &&
     confirmationPage.includes('<ul class="govuk-list govuk-list--bullet">') &&
     confirmationPage.includes('<a class="govuk-link" href="/FCT-v1/2-cps-user-journey/E-case-overview">return to your task</a>') &&
     confirmationPage.includes('<a class="govuk-link" href="/">go to the homepage</a>') &&
     confirmationPage.includes('<a class="govuk-link" href="/accessability">make another change to your accessibility settings</a>') &&
-    !confirmationPage.includes('>Return to your task</a>') &&
-    !confirmationPage.includes('>Return to the homepage</a>') &&
-    !confirmationPage.includes('>return to the homepage</a>') &&
-    !confirmationPage.includes('>Make another change to your accessibility settings</a>') &&
-    confirmationPage.indexOf('titleText: "Your accessibility settings have been updated."') < confirmationPage.indexOf('<h2 class="govuk-heading-m">Next steps</h2>') &&
-    confirmationPage.indexOf('<h2 class="govuk-heading-m">Next steps</h2>') < confirmationPage.indexOf('<p class="govuk-body">You can:</p>') &&
-    confirmationPage.indexOf('<p class="govuk-body">You can:</p>') < confirmationPage.indexOf('<ul class="govuk-list govuk-list--bullet">'),
-  'Expected accessability confirmation page to show Next steps with GOV.UK bullet links using a lead-in line and lowercase list item text'
+    confirmationPage.indexOf('{#') < confirmationPage.indexOf('<h2 class="govuk-heading-m">Next steps</h2>') &&
+    confirmationPage.indexOf('<a class="govuk-link" href="/accessability">make another change to your accessibility settings</a>') < confirmationPage.lastIndexOf('#}'),
+  'Expected accessability confirmation page to comment out the Next steps content underneath the confirmation panel'
 )
 
 console.log('accessability control page checks passed')
