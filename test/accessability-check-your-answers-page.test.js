@@ -35,15 +35,16 @@ assert(
 assert(
   checkAnswersPage.includes('{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}') &&
     checkAnswersPage.includes('{% from "govuk/components/button/macro.njk" import govukButton %}') &&
-    !checkAnswersPage.includes('{% from "govuk/components/back-link/macro.njk" import govukBackLink %}'),
-  'Expected check your answers page to use standard GOV.UK summary list and button macros, with no back link macro'
+    checkAnswersPage.includes('{% from "govuk/components/back-link/macro.njk" import govukBackLink %}'),
+  'Expected check your answers page to use standard GOV.UK summary list, button and back link macros'
 )
 
 assert(
-  !checkAnswersPage.includes('{% block beforeContent %}') &&
-    !checkAnswersPage.includes('govukBackLink({') &&
-    !checkAnswersPage.includes('text: "Back"'),
-  'Expected check your answers page to remove the Back link from the journey'
+  checkAnswersPage.includes('{% block beforeContent %}') &&
+    checkAnswersPage.includes('govukBackLink({') &&
+    checkAnswersPage.includes('text: "Back"') &&
+    checkAnswersPage.includes('href: "/accessability"'),
+  'Expected check your answers page only to include a GOV.UK Back link to the accessibility settings page'
 )
 
 assert(
