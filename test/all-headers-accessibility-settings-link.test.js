@@ -29,9 +29,9 @@ assert(
 
 assert(
   referenceLayout.includes('href: "/accessability"') &&
-    referenceLayout.includes('text: "Accessibility settings (opens in new tab)"') &&
-    referenceLayout.indexOf('text: "Accessibility settings (opens in new tab)"') < referenceLayout.indexOf('text: "Accessibility statement (opens in new tab)"'),
-  'Expected reference case overview footer to include Accessibility settings with opens in new tab copy before Accessibility statement'
+    referenceLayout.includes('text: "Settings (opens in new tab)"') &&
+    referenceLayout.indexOf('text: "Settings (opens in new tab)"') < referenceLayout.indexOf('text: "Accessibility statement (opens in new tab)"'),
+  'Expected reference case overview footer to include Settings with opens in new tab copy before Accessibility statement'
 )
 
 assert(

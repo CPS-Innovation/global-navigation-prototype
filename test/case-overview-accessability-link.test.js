@@ -17,12 +17,12 @@ assert(
 
 assert(
   layout.includes('href: "/accessability"') &&
-    layout.includes('text: "Accessibility settings (opens in new tab)"') &&
+    layout.includes('text: "Settings (opens in new tab)"') &&
     layout.includes('text: "Accessibility statement (opens in new tab)"') &&
-    layout.indexOf('text: "Accessibility settings (opens in new tab)"') < layout.indexOf('text: "Accessibility statement (opens in new tab)"') &&
-    layout.indexOf('text: "Accessibility settings (opens in new tab)"') < layout.indexOf('target: "_blank"') &&
+    layout.indexOf('text: "Settings (opens in new tab)"') < layout.indexOf('text: "Accessibility statement (opens in new tab)"') &&
+    layout.indexOf('text: "Settings (opens in new tab)"') < layout.indexOf('target: "_blank"') &&
     layout.includes('rel: "noopener noreferrer"'),
-  'Expected the case overview footer to include Accessibility settings before Accessibility statement and open it in a new tab'
+  'Expected the case overview footer to include Settings before Accessibility statement and open it in a new tab'
 )
 
 assert(
