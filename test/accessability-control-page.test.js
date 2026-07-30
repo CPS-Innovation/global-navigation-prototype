@@ -60,22 +60,22 @@ assert(
 )
 
 assert(
-  page.includes('<h1 class="govuk-heading-l">Accessibility settings</h1>') &&
+  page.includes('<h1 class="govuk-heading-l">Settings</h1>') &&
     !page.includes('style="margin-top:25px"'),
   'Expected accessability page to use the standard GOV.UK H1 spacing without inline margin overrides'
 )
 
 assert(
-  page.includes('Use this page to define your accessibility settings.'),
-  'Expected accessability page to use the updated accessibility settings intro copy'
+  page.includes('Use this page to define your settings.'),
+  'Expected accessability page to use the updated settings intro copy'
 )
 
 assert(
-  page.includes('<!-- <h2 class="govuk-heading-m" >Accessibility statement</h2> -->') &&
+  page.includes('<!-- <h2 class="govuk-heading-m" >Statement</h2> -->') &&
     page.includes('{#') &&
-    page.includes('View the accessibility statement (opens in new tab)') &&
+    page.includes('View the statement (opens in new tab)') &&
     page.includes('#}'),
-  'Expected accessability page body to comment out the accessibility statement link copy'
+  'Expected accessability page body to comment out the statement link copy'
 )
 
 assert(
@@ -117,9 +117,9 @@ assert(
   layout.includes("{% from 'govuk/components/footer/macro.njk' import govukFooter %}") &&
     layout.includes('{% block govukFooter %}') &&
     layout.includes('href: "/accessability"') &&
-    layout.includes('text: "Accessibility settings (opens in new tab)"') &&
-    layout.includes('text: "Accessibility statement (opens in new tab)"') &&
-    layout.indexOf('text: "Accessibility settings (opens in new tab)"') < layout.indexOf('text: "Accessibility statement (opens in new tab)"') &&
+    layout.includes('text: "Settings (opens in new tab)"') &&
+    layout.includes('text: "Statement (opens in new tab)"') &&
+    layout.indexOf('text: "Settings (opens in new tab)"') < layout.indexOf('text: "Statement (opens in new tab)"') &&
     !layout.includes('text: "Accessibility statement (opens in a new tab)"') &&
     !layout.includes('text: "Accessibility statement (Opens in new window)"') &&
     !layout.includes('text: "Accessability statement') &&
@@ -127,11 +127,11 @@ assert(
     layout.includes('text: "Clear data"') &&
     layout.includes('text: "Manage your prototype"') &&
     layout.includes('#}') &&
-    layout.indexOf('text: "Accessibility statement (opens in new tab)"') < layout.indexOf('{#') &&
+    layout.indexOf('text: "Statement (opens in new tab)"') < layout.indexOf('{#') &&
     layout.indexOf('text: "Clear data"') > layout.indexOf('{#') &&
     layout.includes('target: "_blank"') &&
     layout.includes('rel: "noopener noreferrer"'),
-  'Expected accessability layout footer to show Accessibility settings with opens in new tab copy before Accessibility statement and comment out Clear data'
+  'Expected accessability layout footer to show Settings with opens in new tab copy before Statement and comment out Clear data'
 )
 
 assert(
@@ -220,7 +220,7 @@ assert(
     confirmationPage.includes('<div class="govuk-grid-row">') &&
     confirmationPage.includes('<div class="govuk-grid-column-two-thirds">') &&
     confirmationPage.includes('govukPanel({') &&
-    confirmationPage.includes('titleText: "Your accessibility settings have been updated"') &&
+    confirmationPage.includes('titleText: "Your settings have been updated"') &&
     confirmationPage.includes('{# text: "Your changes have been saved" #}') &&
     !confirmationPage.includes('text: "Your changes have been saved"\n'),
   'Expected accessability confirmation page to use the GOV.UK confirmation page pattern with the updated H1 and commented-out panel body text'
@@ -233,17 +233,17 @@ assert(
 )
 
 assert(
-  !confirmationPage.includes('<p class="govuk-body">Your accessibility settings have been updated.</p>') &&
-    !confirmationPage.includes('titleText: "Your accessibility settings have been updated."') &&
+  !confirmationPage.includes('<p class="govuk-body">Your settings have been updated.</p>') &&
+    !confirmationPage.includes('titleText: "Your settings have been updated."') &&
     confirmationPage.includes('{#') &&
     confirmationPage.includes('<h2 class="govuk-heading-m">Next steps</h2>') &&
     confirmationPage.includes('<p class="govuk-body">You can:</p>') &&
     confirmationPage.includes('<ul class="govuk-list govuk-list--bullet">') &&
     confirmationPage.includes('<a class="govuk-link" href="/FCT-v1/2-cps-user-journey/E-case-overview">return to your task</a>') &&
     confirmationPage.includes('<a class="govuk-link" href="/">go to the homepage</a>') &&
-    confirmationPage.includes('<a class="govuk-link" href="/accessability">make another change to your accessibility settings</a>') &&
+    confirmationPage.includes('<a class="govuk-link" href="/accessability">make another change to your settings</a>') &&
     confirmationPage.indexOf('{#') < confirmationPage.indexOf('<h2 class="govuk-heading-m">Next steps</h2>') &&
-    confirmationPage.indexOf('<a class="govuk-link" href="/accessability">make another change to your accessibility settings</a>') < confirmationPage.lastIndexOf('#}'),
+    confirmationPage.indexOf('<a class="govuk-link" href="/accessability">make another change to your settings</a>') < confirmationPage.lastIndexOf('#}'),
   'Expected accessability confirmation page to comment out the Next steps content underneath the confirmation panel'
 )
 

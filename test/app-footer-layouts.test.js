@@ -14,6 +14,9 @@ const layoutNames = [
 for (const layoutName of layoutNames) {
   const layoutPath = path.join(__dirname, '..', 'app', 'views', layoutName)
   const layout = fs.readFileSync(layoutPath, 'utf8')
+  const statementLinkText = layoutName === 'layoutCPS-ACCESSABILITY.html'
+    ? 'Statement (opens in new tab)'
+    : 'Accessibility statement (opens in new tab)'
 
   assert(
     layout.includes("{% from 'govuk/components/footer/macro.njk' import govukFooter %}"),
@@ -36,7 +39,7 @@ for (const layoutName of layoutNames) {
 
   assert(
     layout.includes('{% block govukFooter %}') &&
-      layout.includes('Accessibility statement (opens in new tab)') &&
+      layout.includes(statementLinkText) &&
       layout.includes('target: "_blank"') &&
       layout.includes('rel: "noopener noreferrer"') &&
       layout.includes('visuallyHiddenTitle: "Footer links"'),

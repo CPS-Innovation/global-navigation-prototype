@@ -69,7 +69,7 @@ assert(
 )
 
 assert(
-  confirmationPage.includes('titleText: "Your accessibility settings have been updated"'),
+  confirmationPage.includes('titleText: "Your settings have been updated"'),
   'Expected the existing confirmation page with the updated H1 to remain the next step after check your answers'
 )
 

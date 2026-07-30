@@ -41,9 +41,9 @@ assert(
 
 assert(
   accessabilityLayout.includes('href: "/accessability"') &&
-    accessabilityLayout.includes('text: "Accessibility settings (opens in new tab)"') &&
-    accessabilityLayout.indexOf('text: "Accessibility settings (opens in new tab)"') < accessabilityLayout.indexOf('text: "Accessibility statement (opens in new tab)"'),
-  'Expected accessibility pages footer to include Accessibility settings with opens in new tab copy before Accessibility statement'
+    accessabilityLayout.includes('text: "Settings (opens in new tab)"') &&
+    accessabilityLayout.indexOf('text: "Settings (opens in new tab)"') < accessabilityLayout.indexOf('text: "Statement (opens in new tab)"'),
+  'Expected accessibility pages footer to include Settings with opens in new tab copy before Statement'
 )
 
 console.log('all headers accessibility settings link checks passed')

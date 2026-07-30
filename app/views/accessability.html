@@ -1,5 +1,5 @@
 {% extends "layoutCPS-ACCESSABILITY.html" %}
-{% set pageName = "Accessibility settings" %}
+{% set pageName = "Settings" %}
 {% set headerServiceName = "Manage cases" %}
 {% set pageMainClasses = "govuk-!-static-padding-top-7" %}
 
@@ -8,11 +8,11 @@
 
 {% block content %}
 <div style="margin-top:30px"></div>
-  <h1 class="govuk-heading-l">Accessibility settings</h1>
-  <p class="govuk-body">Use this page to define your accessibility settings.</p>
+  <h1 class="govuk-heading-l">Settings</h1>
+  <p class="govuk-body">Use this page to define your settings.</p>
 
-   <!-- <h2 class="govuk-heading-m" >Accessibility statement</h2> -->
-   {# <p class="govuk-body"><a href="#">View the accessibility statement (opens in new tab)</a></p> #}
+   <!-- <h2 class="govuk-heading-m" >Statement</h2> -->
+   {# <p class="govuk-body"><a href="#">View the statement (opens in new tab)</a></p> #}
 
   <form action="/accessability-check-your-answers" method="post" novalidate>
     {{ govukRadios({
