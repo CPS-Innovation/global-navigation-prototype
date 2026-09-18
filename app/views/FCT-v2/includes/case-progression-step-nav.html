@@ -1,0 +1,137 @@
+{#
+  FCT v2 "Case Progression" left-hand navigation.
+
+  Uses the vendored GOV.UK step-by-step-nav pattern (app-step-nav__*) for the
+  outer list of review phases, with a v2 modifier that matches the Figma
+  measurements. The phase containing the current page is expanded and shows
+  a custom task sub-navigation (app-task-nav) with to do / complete / current
+  states - this sub-navigation is not a GOV.UK pattern.
+
+  Usage:
+    {% from "FCT-v2/includes/case-progression-step-nav.html" import caseProgressionStepNav %}
+    {{ caseProgressionStepNav("victim-and-witness-needs") }}
+
+  activeTaskSlug must match one of the `slug` values in `tasks` below. Tasks
+  listed before the active one are shown as complete.
+#}
+
+{% macro caseProgressionStepNav(activeTaskSlug) %}
+  {% set reviewTitle = "Police charged case - first review" %}
+  {% set phases = [
+    {
+      title: "Post charge analysis",
+      tasks: [
+        { text: "Case summary", slug: "case-summary" },
+        { text: "Evidential analysis", slug: "evidential-analysis" },
+        { text: "Public interest assessment", slug: "public-interest-assessment" },
+        { text: "Disclosure management", slug: "disclosure-management" },
+        { text: "Allocation", slug: "allocation" },
+        { text: "Victim and witness needs", slug: "victim-and-witness-needs" },
+        { text: "Trial and sentencing preparation", slug: "trial-and-sentencing-preparation" },
+        { text: "Human rights", slug: "human-rights" },
+        { text: "Advocate and operational delivery instructions", slug: "advocate-and-operational-delivery-instructions" },
+        { text: "Monitoring codes", slug: "monitoring-codes" },
+        { text: "Preview", slug: "preview" }
+      ]
+    },
+    { title: "DG file quality assessment", tasks: [] },
+    { title: "Case action plan", tasks: [] },
+    { title: "Submit review", tasks: [] }
+  ] %}
+
+  <div class="app-fct-v2-step-nav" data-module="fct-v2-case-progression-step-nav">
+    <p class="app-fct-v2-step-nav__caption">{{ reviewTitle }}</p>
+    <p class="app-fct-v2-step-nav__due">Due by <span class="js-review-due-date">2 Sept 2025</span></p>
+
+    <div class="app-step-nav app-step-nav--fct-v2 js-fct-v2-step-nav">
+      <ol class="app-step-nav__steps">
+        {% for phase in phases %}
+          {% set phaseNumber = loop.index %}
+          {% set phaseIsActive = phase.tasks | selectattr("slug", "equalto", activeTaskSlug) | list | length > 0 %}
+          <li class="app-step-nav__step js-step">
+            <div class="app-step-nav__header js-toggle-panel" data-position="{{ phaseNumber }}">
+              <h2 class="app-step-nav__title">
+                <span class="app-step-nav__circle app-step-nav__circle--number">
+                  <span class="app-step-nav__circle-inner">
+                    <span class="app-step-nav__circle-background">
+                      <span class="app-step-nav__circle-step-label govuk-visually-hidden">Step</span>
+                      {{ phaseNumber }}<span class="app-step-nav__circle-step-colon govuk-visually-hidden" aria-hidden="true">:</span>
+                    </span>
+                  </span>
+                </span>
+                <button type="button" class="app-step-nav__button app-step-nav__button--title js-step-toggle" aria-expanded="{{ 'true' if phaseIsActive else 'false' }}">
+                  {{ phase.title }}
+                </button>
+              </h2>
+              {% if phase.tasks | length %}
+                <p class="app-step-nav__controls">
+                  <button type="button" class="app-step-nav__button app-step-nav__button--controls js-step-toggle" aria-expanded="{{ 'true' if phaseIsActive else 'false' }}">
+                    <span class="js-toggle-link">{{ "Hide" if phaseIsActive else "Show" }}</span>
+                    <span class="govuk-visually-hidden"> {{ phase.title }} tasks</span>
+                  </button>
+                </p>
+              {% endif %}
+            </div>
+
+            {% if phase.tasks | length %}
+              <div class="app-step-nav__panel js-panel{{ '' if phaseIsActive else ' js-hidden' }}">
+                {% set reachedActive = false %}
+                <ul class="app-task-nav">
+                  {% for task in phase.tasks %}
+                    {% set taskIsActive = task.slug == activeTaskSlug %}
+                    {% if taskIsActive %}{% set reachedActive = true %}{% endif %}
+                    {% set taskIsComplete = phaseIsActive and not reachedActive %}
+                    <li class="app-task-nav__item{{ ' app-task-nav__item--current' if taskIsActive }}{{ ' app-task-nav__item--complete' if taskIsComplete }}">
+                      {% if taskIsActive %}
+                        <span class="app-task-nav__label" aria-current="page">{{ task.text }}</span>
+                      {% else %}
+                        <a class="app-task-nav__link app-task-nav__label" href="#">
+                          {% if taskIsComplete %}<span class="govuk-visually-hidden">Completed: </span>{% endif %}{{ task.text }}
+                        </a>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var dueDateEl = document.querySelector('.js-review-due-date');
+      if (dueDateEl) {
+        var dueDate = new Date();
+        dueDate.setDate(dueDate.getDate() + 14);
+        dueDateEl.textContent = dueDate.toLocaleDateString('en-GB', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric'
+        });
+      }
+
+      document.querySelectorAll('.js-fct-v2-step-nav .js-step-toggle').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var header = button.closest('.js-toggle-panel');
+          var panel = header.nextElementSibling;
+          if (!panel || !panel.classList.contains('js-panel')) { return; }
+
+          var willExpand = panel.classList.contains('js-hidden');
+          panel.classList.toggle('js-hidden', !willExpand);
+
+          header.querySelectorAll('.js-step-toggle').forEach(function (toggleButton) {
+            toggleButton.setAttribute('aria-expanded', willExpand ? 'true' : 'false');
+          });
+
+          var toggleLink = header.querySelector('.js-toggle-link');
+          if (toggleLink) {
+            toggleLink.textContent = willExpand ? 'Hide' : 'Show';
+          }
+        });
+      });
+    })();
+  </script>
+{% endmacro %}

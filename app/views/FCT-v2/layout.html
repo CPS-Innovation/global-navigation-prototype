@@ -1,0 +1,23 @@
+{#
+  FCT v2 layout.
+
+  The top banner, primary navigation and secondary navigation are
+  deliberately left out for now - they will be added later. Pages start at
+  the case identity bar (defendant name / URN / autosave status).
+#}
+{% extends "layouts/main.html" %}
+
+{% set containerClasses = "app-fct-v2-width-container" %}
+
+{% block head %}
+  {{ super() }}
+  <style>
+    .govuk-template {
+      background-color: #ffffff !important;
+    }
+  </style>
+{% endblock %}
+
+{% block header %}
+  {# Header, primary and secondary navigation to be added later #}
+{% endblock %}

@@ -1,0 +1,292 @@
+// FCT v2 - Case Progression review pages.
+//
+// Built from the Figma "Case Progression" file (frame
+// FCT-witnesses-and-victims-rec). Sizes and colours below are taken from
+// that frame rather than from the GOV.UK step-by-step-nav defaults, so the
+// prototype matches the design measurements as closely as practical.
+
+$fct-v2-circle-size: 33px;
+$fct-v2-circle-offset: 4px;
+$fct-v2-stroke-width: 1px;
+$fct-v2-task-icon-size: 20px;
+
+// ---------------------------------------------------------------------------
+// Page width - the design is 1200px wide (100px margins on a 1400px canvas)
+// ---------------------------------------------------------------------------
+
+.app-fct-v2-width-container {
+  @include govuk-width-container(1200px);
+}
+
+// ---------------------------------------------------------------------------
+// Identity bar - defendant name, URN and autosave status
+// ---------------------------------------------------------------------------
+
+.app-fct-v2-identity-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 1px solid $govuk-border-colour;
+  padding-bottom: govuk-spacing(2);
+  margin-bottom: govuk-spacing(8);
+}
+
+.app-fct-v2-identity-bar__name {
+  @include govuk-font(24, $weight: bold);
+  margin: 0 0 govuk-spacing(1);
+}
+
+.app-fct-v2-identity-bar__reference,
+.app-fct-v2-identity-bar__autosave {
+  @include govuk-font(19);
+  margin: 0;
+}
+
+// Keeps the <h1> first in the DOM (before the nav's own step headings)
+// while showing the nav visually on the left.
+.app-fct-v2-review-row {
+  display: flex;
+  flex-wrap: wrap;
+
+  .govuk-grid-column-one-third {
+    order: 1;
+  }
+
+  .govuk-grid-column-two-thirds {
+    order: 2;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Step-by-step nav - v2 modifier on the vendored app-step-nav pattern
+// ---------------------------------------------------------------------------
+// The design uses a 33px number circle with a 1px border, a 1px connector
+// line, regular-weight (not bold) step titles and a "Hide"/"Show" toggle
+// sitting directly under the title.
+
+.app-fct-v2-step-nav {
+  margin-bottom: govuk-spacing(6);
+}
+
+.app-fct-v2-step-nav__caption {
+  @include govuk-font(19, $weight: bold);
+  margin: 0 0 govuk-spacing(2);
+}
+
+.app-fct-v2-step-nav__due {
+  @include govuk-font(19);
+  margin: 0 0 19px;
+}
+
+.app-step-nav--fct-v2 {
+  margin-bottom: 0;
+
+  .app-step-nav__step {
+    padding-left: $fct-v2-circle-offset + $fct-v2-circle-size + 17px;
+
+    &:after {
+      top: 0;
+      margin-left: $fct-v2-circle-offset + ($fct-v2-circle-size * 0.5) - ($fct-v2-stroke-width * 0.5);
+      border-left-width: $fct-v2-stroke-width;
+    }
+  }
+
+  // Trailing dash under the last step: a short stub of line then a 17px
+  // horizontal tick to the right, as drawn in the design.
+  .app-step-nav__step:last-child {
+    &:after {
+      height: calc(100% - 22px);
+    }
+
+    &:before {
+      bottom: 22px;
+      margin-left: $fct-v2-circle-offset + ($fct-v2-circle-size * 0.5) - ($fct-v2-stroke-width * 0.5);
+      width: 17px;
+      border-bottom-width: $fct-v2-stroke-width;
+    }
+  }
+
+  // circles sit flush with the separator line above each step, with the
+  // step title starting 8px lower
+  .app-step-nav__circle {
+    top: 0;
+    left: $fct-v2-circle-offset;
+    width: $fct-v2-circle-size;
+    height: $fct-v2-circle-size;
+  }
+
+  .app-step-nav__circle--number {
+    border-width: $fct-v2-stroke-width;
+    font-size: 19px;
+    line-height: $fct-v2-circle-size - ($fct-v2-stroke-width * 2);
+  }
+
+  .app-step-nav__header {
+    padding: 8px 0 29px;
+    border-top: $fct-v2-stroke-width solid $govuk-border-colour;
+  }
+
+  > .app-step-nav__steps > .app-step-nav__step:first-child > .app-step-nav__header {
+    border-top: none;
+  }
+
+  > .app-step-nav__steps > .app-step-nav__step:last-child > .app-step-nav__header {
+    border-bottom: $fct-v2-stroke-width solid $govuk-border-colour;
+  }
+
+  .app-step-nav__title,
+  .app-step-nav__button--title {
+    font-size: 19px;
+    font-weight: normal;
+    line-height: 24px;
+  }
+
+  .app-step-nav__controls {
+    padding: 17px 0 0;
+    text-align: left;
+  }
+
+  .app-step-nav__button--controls {
+    padding: 0;
+    font-size: 19px;
+    line-height: 19px;
+  }
+
+  .app-step-nav__panel {
+    padding: 0 0 13px;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Task sub-navigation inside an expanded step (custom - not a GOV.UK pattern)
+// ---------------------------------------------------------------------------
+// Each task has a 20px status circle (hollow = to do, ticked = complete,
+// filled = current) joined by a 1px connector line running from the first
+// circle to the last.
+
+.app-task-nav {
+  @include govuk-font(19);
+  list-style: none;
+  margin: -10px 0 0;
+  padding: 0;
+  line-height: 24px;
+}
+
+.app-task-nav__item {
+  position: relative;
+  margin: 0;
+  padding: govuk-spacing(3) 0 govuk-spacing(3) ($fct-v2-task-icon-size + 13px);
+
+  // status circle
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: govuk-spacing(3) + 2px;
+    left: 0;
+    width: $fct-v2-task-icon-size;
+    height: $fct-v2-task-icon-size;
+    background: url("/public/images/fct-v2/task-todo.svg") center / $fct-v2-task-icon-size $fct-v2-task-icon-size no-repeat;
+  }
+
+  // connector line from this circle's centre to the next one's
+  &:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: govuk-spacing(3) + ($fct-v2-task-icon-size * 0.5) + 2px;
+    bottom: -(govuk-spacing(3) + ($fct-v2-task-icon-size * 0.5) + 2px);
+    left: ($fct-v2-task-icon-size * 0.5) - ($fct-v2-stroke-width * 0.5);
+    width: 0;
+    border-left: $fct-v2-stroke-width solid $govuk-border-colour;
+  }
+
+  &:last-child:after {
+    content: none;
+  }
+}
+
+.app-task-nav__item--complete:before {
+  background-image: url("/public/images/fct-v2/task-complete-check.svg"), url("/public/images/fct-v2/task-todo.svg");
+}
+
+.app-task-nav__item--current:before {
+  background-image: url("/public/images/fct-v2/task-current.svg");
+}
+
+.app-task-nav__item--current .app-task-nav__label {
+  font-weight: bold;
+}
+
+.app-task-nav__link {
+  @include govuk-link-common;
+  @include govuk-link-style-text;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Rich-text answer editor (custom - GOV.UK Frontend has no equivalent)
+// ---------------------------------------------------------------------------
+
+.app-fct-v2-editor {
+  border: 2px solid $govuk-input-border-colour;
+}
+
+.app-fct-v2-editor__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: govuk-spacing(3);
+  background-color: #f2f2f2;
+}
+
+.app-fct-v2-editor__button {
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+
+  img {
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+
+  &:focus {
+    outline: 3px solid transparent;
+    background-color: $govuk-focus-colour;
+    box-shadow: 0 2px 0 $govuk-focus-text-colour;
+  }
+}
+
+.app-fct-v2-editor__body {
+  @include govuk-font(19);
+  min-height: 803px;
+  max-height: 803px;
+  overflow-y: auto;
+  padding: govuk-spacing(3);
+  outline: none;
+
+  &:focus {
+    outline: $govuk-focus-width solid $govuk-focus-colour;
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 2px;
+  }
+}
+
+.app-fct-v2-editor__count {
+  margin-top: 19px;
+  margin-bottom: 0;
+}
