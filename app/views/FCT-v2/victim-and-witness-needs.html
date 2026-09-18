@@ -1,0 +1,105 @@
+{% extends "FCT-v2/layout.html" %}
+{% from "FCT-v2/includes/case-progression-step-nav.html" import caseProgressionStepNav %}
+
+{% set pageName = "Victim and witness needs" %}
+{% set caseName = "McLOVE, Eoin" %}
+{% set caseReference = "45AA209820/1" %}
+
+{% block content %}
+<div class="app-fct-v2-identity-bar">
+  <div>
+    <p class="app-fct-v2-identity-bar__name">{{ caseName }}</p>
+    <p class="app-fct-v2-identity-bar__reference">{{ caseReference }}</p>
+  </div>
+  <p class="app-fct-v2-identity-bar__autosave">Autosave is on. Last saved <span class="js-autosave-time"></span></p>
+</div>
+
+<div class="govuk-grid-row app-fct-v2-review-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-8">Victim and witness needs</h1>
+
+    <p class="govuk-body govuk-!-margin-bottom-8">Highlight key witness and victim information and actions to help them support the case.</p>
+
+    {% set helpHtml %}
+      <p class="govuk-body">You should consider:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>whether a victim is entitled to a standard or enhanced level of service under the Victims’ Code</li>
+        <li>whether a victim or witness is vulnerable or intimidated and may benefit from special measures. If so, of what type and in what combination</li>
+        <li>whether a victim or witness requires an interpreter and, if so, for what language</li>
+        <li>any children in the household and identify them as victims in domestic abuse cases</li>
+      </ul>
+      <p class="govuk-body govuk-!-margin-bottom-0">See <a class="govuk-link" href="https://www.cps.gov.uk/legal-guidance/special-measures" target="_blank" rel="noopener noreferrer">guidance on special measures (opens in new tab)</a></p>
+    {% endset %}
+
+    {{ govukDetails({
+      summaryText: "Help with victim and witness needs",
+      html: helpHtml,
+      open: true,
+      classes: "govuk-!-margin-bottom-8"
+    }) }}
+
+    <div class="govuk-form-group">
+      <label class="govuk-label govuk-visually-hidden" for="victim-and-witness-needs-answer">Victim and witness needs</label>
+      <div class="app-fct-v2-editor">
+        <div class="app-fct-v2-editor__toolbar" role="toolbar" aria-label="Text formatting">
+          <button type="button" class="app-fct-v2-editor__button" data-command="bold" aria-label="Bold"><img src="/public/images/fct-v2/format-bold.svg" alt=""></button>
+          <button type="button" class="app-fct-v2-editor__button" data-command="italic" aria-label="Italic"><img src="/public/images/fct-v2/format-italic.svg" alt=""></button>
+          <button type="button" class="app-fct-v2-editor__button" data-command="underline" aria-label="Underline"><img src="/public/images/fct-v2/format-underline.svg" alt=""></button>
+          <button type="button" class="app-fct-v2-editor__button" data-command="fontSize" data-value="4" aria-label="Text size"><img src="/public/images/fct-v2/format-text-size.svg" alt=""></button>
+          <button type="button" class="app-fct-v2-editor__button" data-command="hiliteColor" data-value="#ffdd00" aria-label="Highlight"><img src="/public/images/fct-v2/format-highlight.svg" alt=""></button>
+          <button type="button" class="app-fct-v2-editor__button" data-command="insertOrderedList" aria-label="Numbered list"><img src="/public/images/fct-v2/format-ordered-list.svg" alt=""></button>
+          <button type="button" class="app-fct-v2-editor__button" data-command="insertUnorderedList" aria-label="Bulleted list"><img src="/public/images/fct-v2/format-bullet-list.svg" alt=""></button>
+        </div>
+        <div class="app-fct-v2-editor__body" id="victim-and-witness-needs-answer" contenteditable="true" role="textbox" aria-multiline="true" aria-describedby="victim-and-witness-needs-answer-info"></div>
+      </div>
+      <div id="victim-and-witness-needs-answer-info" class="govuk-hint govuk-character-count__message app-fct-v2-editor__count" aria-live="polite">
+        You have 32,767 characters remaining
+      </div>
+    </div>
+
+    <div class="govuk-button-group govuk-!-margin-top-8">
+      {{ govukButton({
+        text: "Save and continue",
+        href: "#"
+      }) }}
+      <a class="govuk-link" href="#">Save and exit</a>
+    </div>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    {{ caseProgressionStepNav("victim-and-witness-needs") }}
+  </div>
+</div>
+
+<script>
+  (function () {
+    var MAX_CHARACTERS = 32767;
+    var editor = document.getElementById('victim-and-witness-needs-answer');
+    var message = document.getElementById('victim-and-witness-needs-answer-info');
+
+    document.querySelectorAll('.app-fct-v2-editor__button').forEach(function (button) {
+      button.addEventListener('click', function () {
+        editor.focus();
+        document.execCommand(button.dataset.command, false, button.dataset.value || null);
+      });
+    });
+
+    editor.addEventListener('input', function () {
+      var remaining = MAX_CHARACTERS - editor.textContent.length;
+      message.textContent = 'You have ' + remaining.toLocaleString() + ' characters remaining';
+    });
+
+    var autosaveTime = document.querySelector('.js-autosave-time');
+    if (autosaveTime) {
+      function updateAutosaveTime() {
+        var now = new Date();
+        now.setSeconds(now.getSeconds() - 10);
+        autosaveTime.textContent = now.toLocaleTimeString('en-GB');
+      }
+
+      updateAutosaveTime();
+      setInterval(updateAutosaveTime, 11000);
+    }
+  })();
+</script>
+{% endblock %}
